@@ -1,0 +1,39 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2761
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 HelveticaNeue;\f1\fnil\fcharset0 HelveticaNeue-Bold;}
+{\colortbl;\red255\green255\blue255;\red38\green38\blue38;\red251\green251\blue251;}
+{\*\expandedcolortbl;;\cssrgb\c20000\c20000\c20000;\cssrgb\c98824\c98824\c98824;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid1\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid1}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}}
+\paperw11900\paperh16840\margl1440\margr1440\vieww33100\viewh20140\viewkind0
+\deftab720
+\pard\pardeftab720\sa180\partightenfactor0
+
+\f0\fs40 \cf2 \cb3 \'d6vning: Psykisk oh\'e4lsa bland studerande - analys av en enk\'e4tunders\'f6kning\
+\
+\pard\pardeftab720\sa180\partightenfactor0
+
+\fs30 \cf2 I den h\'e4r \'f6vningen ska vi arbeta med ett st\'f6rre dataset \'e4n i tidigare \'f6vningar!\
+Datasetet kommer fr\'e5n en enk\'e4tunders\'f6kning kring om studerande p\'e5 universitetsniv\'e5 i Indien anser sig vara deprimerade eller inte och hur detta korrelerar till deras studieb\'f6rda, arbetsb\'f6rda, antal timmar de arbetar/studerar per dag, hur mycket de sover, om de upplever att de \'e4ter h\'e4lsosamt eller inte etc.\
+Datasetet \'e4r h\'e4mtat h\'e4rifr\'e5n, inneh\'e5ller ca 27 900 enk\'e4tsvar och \'e4r i CSV-format (kommaseparerat).\
+\pard\pardeftab720\sa180\partightenfactor0
+
+\f1\b \cf2 Ladda hem datasetet\
+\pard\pardeftab720\sa180\partightenfactor0
+
+\f0\b0 \cf2 \'c4ven om v\'e5r mall har funktionalitet f\'f6r att l\'e4sa in CSV-formaterade dataset, s\'e5 ska vi i det h\'e4r fallet importera datan till SQLite, d\'e5 detta m\'f6jligg\'f6r att vi kan anv\'e4nda SQL-fr\'e5gor f\'f6r att arbeta med datan.\
+\pard\pardeftab720\sa180\partightenfactor0
+
+\f1\b \cf2 Du kan avv\'e4nda SQLiteStudio:s importfunktion f\'f6r detta:\
+\pard\tx20\tx490\pardeftab720\li490\fi-491\sa180\partightenfactor0
+\ls1\ilvl0
+\f0\b0 \cf2 \cb1 {\listtext	1.	}\cb3 Skapa en ny databas.\
+\ls1\ilvl0\cb1 {\listtext	2.	}\cb3 Skapa en tabell med kolumner motsvarande de i datasetet. T\'e4nk igenom val av datatyp och kolumnnamn. Det kan vara bra om du inte har mellanslag eller konstiga tecken i kolumnnamn och f\'f6ljer en namngivningskonvention - t.ex. camelcasing!\
+\ls1\ilvl0\cb1 {\listtext	3.	}\cb3 Importera data fr\'e5n CSV-filen genom att v\'e4lja Tools -> Import och f\'f6lja instruktionerna i den dialogruta/wizard som dyker upp!\
+\ls1\ilvl0\cb1 {\listtext	4.	}\cb3 Fundera \'e4ven p\'e5 om n\'e5gon data beh\'f6ver transformeras, t.ex. vore kanske Sleep Duration en bra kandidat. Denna kolumn inneh\'e5ller just nu textbaserad data, men borde g\'e5 att omvandla till numeriska gr\'e4nsv\'e4rden som g\'e5r att r\'e4kna p\'e5. Finns det andra kolumner som beh\'f6ver transformeras f\'f6r att det ska bli l\'e4ttare att r\'e4kna med dem statistiskt?\
+\ls1\ilvl0\cb1 {\listtext	5.	}\cb3 Utg\'e5 fr\'e5n v\'e5r mall i version 3 och se till att kopiera in databasen i den. Obs! I och med att det h\'e4r blivit en inl\'e4mningsuppgift \'e4r det version 5 eller senare av mallen som g\'e4ller!\
+\ls1\ilvl0\cb1 {\listtext	6.	}\cb3 Se \'e4ven till att skapa ett git-repo p\'e5 GitHub med filerna fr\'e5n mallen + SQLitedatabasen! (Anv\'e4nd g\'e4rna GitHub Desktop f\'f6r att skapa repositoriet och, viktigt, se till att du git-ignorerar node_modules-mappen!)\
+\ls1\ilvl0\cb1 {\listtext	7.	}\cb3 B\'f6rja unders\'f6ka datasetet - kan du hitta samband mellan olika kolumner/m\'e4tv\'e4rden? Detta kan du g\'f6ra direkt med SQL-kommandon (och om du vill i SQLiteStudio) eller genom att anv\'e4nda v\'e5r mall f\'f6r att st\'e4lla SQL-fr\'e5gor, med f\'f6rdelen att du f\'e5r tillg\'e5ng till att anv\'e4nda Simple Statistics p\'e5 resultat (efter mappning till numeriska listor/arrayer), samt Google Charts.\
+\ls1\ilvl0\cb1 {\listtext	8.	}\cb3 Finns det en story att ber\'e4tta h\'e4r? \'c4r det tydligt att vissa faktorer verka p\'e5verka de studerandes psykiska h\'e4lsa/oh\'e4lsa? Vilka \'e4r i s\'e5 fall de som p\'e5verkar mest\'85\
+\ls1\ilvl0\cb1 {\listtext	9.	}\cb3 Kan du ber\'e4tta den h\'e4r historien p\'e5 ett intressant s\'e4tt, genom att blanda en ber\'e4ttande text, tabeller med delresultat och diagram som pekar p\'e5 viktiga tendenser?\
+\pard\pardeftab720\sa180\partightenfactor0
+\cf2 Detta \'e4r en relativt stor \'f6vning s\'e5 du beh\'f6ver inte g\'f6ra klart den under veckan, men arbeta g\'e4rna med den under fredag och m\'e5ndag till dess att vi ses igen n\'e4sta tisdag! D\'e5 kan vi prata om hur l\'e5ngt du kommit, vad du har uppt\'e4ckt och vad det finns f\'f6r story att ber\'e4tta kring datan.}
