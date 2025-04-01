@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS studentDepression (
+    id INTEGER PRIMARY KEY,
+    gender TEXT,
+    age REAL,
+    city TEXT,
+    profession TEXT,
+    academicPressure REAL,
+    workPressure REAL,
+    cgpa REAL,
+    studySatisfaction REAL,
+    jobSatisfaction REAL,
+    sleepDuration TEXT,
+    dietaryHabits TEXT,
+    degree TEXT,
+    suicidalThoughts TEXT,
+    studyHours REAL,
+    workHours REAL,
+    financialStress REAL,
+    familyHistoryMentalIllness TEXT,
+    depression INTEGER
+); 
