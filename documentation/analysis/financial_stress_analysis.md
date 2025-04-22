@@ -1,9 +1,9 @@
-# Financial Stress Analysis Report
+# Financial Stress and Mental Health Analysis
 
 ## Overview
-This analysis investigates the relationships between financial stress and various aspects of student life, including mental health, academic performance, study patterns, and sleep habits among university students in India.
+This document analyzes the relationship between financial stress, sleep patterns, dietary habits, and depression among students in India based on the dataset.
 
-## Key Findings
+## Initial Analysis [April 1-15, 2025]
 
 ### 1. Financial Stress and Depression Rates
 - **High Financial Stress**: 75.63% depression rate (12,493 students)
@@ -96,6 +96,95 @@ The data shows a clear correlation between dietary habits and depression rates, 
 - Without family history: 35.69% depression (5,349 students)
 
 Family history of mental illness appears to increase vulnerability to depression across all stress levels, with an average increase of 4-7 percentage points in depression rates for students with family history.
+
+## Follow-up Analysis [April 21-22, 2025]
+
+### Recent Financial Stress Analysis
+- Average stress level: 3.14 out of 5 (moderate to high stress)
+- 44.8% of students report high stress levels (level 4-5)
+- At stress level 5, the depression rate is 81.3% (5458 out of 6715 students)
+- Clear positive correlation between financial stress level and depression rates
+- Database query results show a steady increase in depression percentage as stress levels increase
+
+### Sleep Patterns Analysis
+- Average sleep duration: 6.3 hours (below recommended 7-9 hours)
+- 52% of students get less than 6 hours of sleep per night
+- Highest depression rate among "Less than 5 hours" group (64.5% - 5361 out of 8310 students)
+- Even students with longer sleep durations show significant depression rates
+
+### Dietary Habits Analysis
+- Only 27.4% of students maintain healthy dietary habits
+- Strong correlation between dietary habits and depression
+- Depression rates by diet type:
+  - Unhealthy: 70.7% (7297 out of 10317 students)
+  - Moderate: 56.0% (5558 out of 9921 students)
+  - Healthy: 45.4% (3473 out of 7651 students)
+
+## Technical Implementation
+The implementation includes:
+- Interactive visualizations for all three factors
+- Statistical calculations using the Simple Statistics library
+- Data cleaning to handle issues like quotation marks in sleep duration data
+- Correlation calculations to quantify relationships between factors and depression
+
+## Technical Challenges Addressed
+1. SQL Query Issues:
+   - Corrected column reference from "financial_stress" to "financialStress"
+   - Excluded null values and placeholder values ('?') from analysis
+
+2. Data Formatting:
+   - Cleaned sleep duration values by removing extra quotation marks
+   - Implemented proper handling of categorical data for statistical analysis
+
+3. Statistical Analysis:
+   - Added fallback calculations for correlation when direct calculation fails
+   - Implemented weighted averages to account for different group sizes
+
+## Raw Data References
+From the database queries, the following key metrics were obtained:
+
+### Financial Stress and Depression
+```
+{ financialStress: 1, depression: 0, count: 3489 }
+{ financialStress: 1, depression: 1, count: 1632 }
+{ financialStress: 2, depression: 0, count: 2886 }
+{ financialStress: 2, depression: 1, count: 2175 }
+{ financialStress: 3, depression: 0, count: 2146 }
+{ financialStress: 3, depression: 1, count: 3080 }
+{ financialStress: 4, depression: 0, count: 1785 }
+{ financialStress: 4, depression: 1, count: 3990 }
+{ financialStress: 5, depression: 0, count: 1257 }
+{ financialStress: 5, depression: 1, count: 5458 }
+```
+
+### Sleep Duration and Depression
+```
+{ sleepDuration: "'5-6 hours'", depression: 0, count: 2666 }
+{ sleepDuration: "'7-8 hours'", depression: 0, count: 2975 }
+{ sleepDuration: "'Less than 5 hours'", depression: 0, count: 2949 }
+{ sleepDuration: "'More than 8 hours'", depression: 0, count: 2966 }
+{ sleepDuration: "'5-6 hours'", depression: 1, count: 3517 }
+{ sleepDuration: "'7-8 hours'", depression: 1, count: 4371 }
+{ sleepDuration: "'Less than 5 hours'", depression: 1, count: 5361 }
+{ sleepDuration: "'More than 8 hours'", depression: 1, count: 3078 }
+```
+
+### Dietary Habits and Depression
+```
+{ dietaryHabits: 'Unhealthy', depression: 0, count: 3020 }
+{ dietaryHabits: 'Unhealthy', depression: 1, count: 7297 }
+{ dietaryHabits: 'Moderate', depression: 0, count: 4363 }
+{ dietaryHabits: 'Moderate', depression: 1, count: 5558 }
+{ dietaryHabits: 'Healthy', depression:, count: 4178 }
+{ dietaryHabits: 'Healthy', depression: 1, count: 3473 }
+```
+
+## Data Insights
+The analysis reveals that:
+1. Financial stress has a strong association with depression, with the highest stress level showing an 81.3% depression rate
+2. Sleep deprivation is prevalent among students and strongly associated with depression
+3. Dietary habits show a clear gradient, with healthier diets associated with lower depression rates
+4. The combination of these factors suggests multiple potential intervention points for mental health support
 
 ## Conclusions
 1. Financial stress has a strong positive correlation with depression rates

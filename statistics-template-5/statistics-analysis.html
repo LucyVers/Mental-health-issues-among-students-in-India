@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistical Analysis - Student Mental Health</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-statistics/7.8.3/simple-statistics.min.js"></script>
+    <script src="js/simpleStatistics.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .stats-container {
+            background-color: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .stat-item {
+            margin: 10px 0;
+        }
+        .error {
+            color: red;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <h1>Statistical Analysis Results</h1>
+    
+    <div id="financial-stats" class="stats-container">
+        <h2>Financial Stress Statistics</h2>
+        <div class="stat-item">Mean: <span id="financial-mean"></span></div>
+        <div class="stat-item">Median: <span id="financial-median"></span></div>
+        <div class="stat-item">Standard Deviation: <span id="financial-std"></span></div>
+        <div class="stat-item">Correlation with Depression: <span id="financial-correlation"></span></div>
+    </div>
+
+    <div id="sleep-stats" class="stats-container">
+        <h2>Sleep Quality Statistics</h2>
+        <div class="stat-item">Mean: <span id="sleep-mean"></span></div>
+        <div class="stat-item">Median: <span id="sleep-median"></span></div>
+        <div class="stat-item">Standard Deviation: <span id="sleep-std"></span></div>
+        <div class="stat-item">Correlation with Depression: <span id="sleep-correlation"></span></div>
+    </div>
+
+    <div id="dietary-stats" class="stats-container">
+        <h2>Dietary Habits Statistics</h2>
+        <div class="stat-item">Mean: <span id="dietary-mean"></span></div>
+        <div class="stat-item">Median: <span id="dietary-median"></span></div>
+        <div class="stat-item">Standard Deviation: <span id="dietary-std"></span></div>
+        <div class="stat-item">Correlation with Depression: <span id="dietary-correlation"></span></div>
+    </div>
+
+    <script>
+        // Function to display statistics in the HTML
+        function displayStats(stats, prefix) {
+            document.getElementById(`${prefix}-mean`).textContent = stats.mean.toFixed(2);
+            document.getElementById(`${prefix}-median`).textContent = stats.median.toFixed(2);
+            document.getElementById(`${prefix}-std`).textContent = stats.standardDeviation.toFixed(2);
+            document.getElementById(`${prefix}-correlation`).textContent = stats.correlation.toFixed(2);
+        }
+
+        // Function to display error message
+        function displayError(containerId, message) {
+            const container = document.getElementById(containerId);
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error';
+            errorDiv.textContent = message;
+            container.appendChild(errorDiv);
+        }
+
+        // Load all statistics when the page loads
+        window.addEventListener('load', async () => {
+            try {
+                const financialStats = await calculateFinancialStressStats();
+                displayStats(financialStats, 'financial');
+            } catch (error) {
+                displayError('financial-stats', 'Failed to load financial stress statistics');
+            }
+
+            try {
+                const sleepStats = await calculateSleepStats();
+                displayStats(sleepStats, 'sleep');
+            } catch (error) {
+                displayError('sleep-stats', 'Failed to load sleep quality statistics');
+            }
+
+            try {
+                const dietaryStats = await calculateDietaryStats();
+                displayStats(dietaryStats, 'dietary');
+            } catch (error) {
+                displayError('dietary-stats', 'Failed to load dietary habits statistics');
+            }
+        });
+    </script>
+</body>
+</html> 

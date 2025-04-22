@@ -4,6 +4,7 @@
 import addToPage from './libs/addToPage.js';
 import dbQuery from './libs/dbQuery.js';
 import makeChartFriendly from './libs/makeChartFriendly.js';
+import { calculateFinancialStressStats, calculateSleepStats, calculateDietaryStats } from './simpleStatistics.js';
 
 // Shared chart styling
 const chartColors = {
@@ -601,4 +602,83 @@ google.charts.setOnLoadCallback(() => {
     ]).catch(error => {
         console.error('Error initializing charts:', error);
     });
-}); 
+});
+
+async function initializeCharts() {
+    try {
+        // Load all statistics
+        const [financialStats, sleepStats, dietaryStats] = await Promise.all([
+            calculateFinancialStressStats(),
+            calculateSleepStats(),
+            calculateDietaryStats()
+        ]);
+
+        // Update statistics displays
+        updateFinancialStats(financialStats);
+        updateSleepStats(sleepStats);
+        updateDietaryStats(dietaryStats);
+
+        // Draw charts
+        drawFinancialStressDistribution();
+        drawAcademicPerformance();
+        drawWorkHoursAnalysis();
+    } catch (error) {
+        console.error('Error initializing charts:', error);
+        handleError(error);
+    }
+}
+
+function updateFinancialStats(stats) {
+    const container = document.getElementById('financialStressStats');
+    container.innerHTML = `
+        <h3>Financial Stress</h3>
+        <div class="stat-item">Mean: <span class="stat-value">${stats.mean.toFixed(2)}</span></div>
+        <div class="stat-item">Median: <span class="stat-value">${stats.median.toFixed(2)}</span></div>
+        <div class="stat-item">Standard Deviation: <span class="stat-value">${stats.standardDeviation.toFixed(2)}</span></div>
+        <div class="stat-item">Depression Correlation: <span class="stat-value">${stats.correlation.toFixed(3)}</span></div>
+    `;
+}
+
+function updateSleepStats(stats) {
+    const container = document.getElementById('sleepStats');
+    container.innerHTML = `
+        <h3>Sleep Quality</h3>
+        <div class="stat-item">Mean Hours: <span class="stat-value">${stats.mean.toFixed(2)}</span></div>
+        <div class="stat-item">Median Hours: <span class="stat-value">${stats.median.toFixed(2)}</span></div>
+        <div class="stat-item">Standard Deviation: <span class="stat-value">${stats.standardDeviation.toFixed(2)}</span></div>
+        <div class="stat-item">Depression Correlation: <span class="stat-value">${stats.correlation.toFixed(3)}</span></div>
+    `;
+}
+
+function updateDietaryStats(stats) {
+    const container = document.getElementById('dietaryStats');
+    container.innerHTML = `
+        <h3>Dietary Habits</h3>
+        <div class="stat-item">Mean Quality: <span class="stat-value">${stats.mean.toFixed(2)}</span></div>
+        <div class="stat-item">Median Quality: <span class="stat-value">${stats.median.toFixed(2)}</span></div>
+        <div class="stat-item">Standard Deviation: <span class="stat-value">${stats.standardDeviation.toFixed(2)}</span></div>
+        <div class="stat-item">Depression Correlation: <span class="stat-value">${stats.correlation.toFixed(3)}</span></div>
+    `;
+}
+
+function handleError(error) {
+    const containers = [
+        'financialStressStats',
+        'sleepStats',
+        'dietaryStats'
+    ];
+
+    containers.forEach(containerId => {
+        const container = document.getElementById(containerId);
+        if (container) {
+            container.innerHTML = `
+                <div class="alert alert-warning" role="alert">
+                    <h4 class="alert-heading">Error Loading Statistics</h4>
+                    <p>${error.message || 'Failed to load statistical data.'}</p>
+                    <hr>
+                    <p class="mb-0">Please try refreshing the page.</p>
+                </div>
+            `;
+        }
+    });
+} 

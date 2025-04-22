@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistical Analysis - Mental Health Study</title>
+    <script src="https://unpkg.com/simple-statistics@7.8.3/dist/simple-statistics.min.js"></script>
+    <script src="js/simpleStatistics.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .stats-container {
+            background-color: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .stat-item {
+            margin: 10px 0;
+        }
+        .stat-label {
+            font-weight: bold;
+            color: #666;
+        }
+        .error {
+            color: red;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <h1>Statistical Analysis of Mental Health Factors</h1>
+    
+    <div class="stats-container">
+        <h2>Financial Stress Analysis</h2>
+        <div id="financial-stats"></div>
+    </div>
+
+    <div class="stats-container">
+        <h2>Sleep Pattern Analysis</h2>
+        <div id="sleep-stats"></div>
+    </div>
+
+    <div class="stats-container">
+        <h2>Dietary Habits Analysis</h2>
+        <div id="dietary-stats"></div>
+    </div>
+
+    <script>
+        async function displayStats() {
+            try {
+                // Financial Stress Statistics
+                const financialStats = await calculateFinancialStressStats();
+                if (financialStats) {
+                    document.getElementById('financial-stats').innerHTML = `
+                        <div class="stat-item"><span class="stat-label">Mean Depression Score:</span> ${financialStats.mean.toFixed(2)}</div>
+                        <div class="stat-item"><span class="stat-label">Median Depression Score:</span> ${financialStats.median.toFixed(2)}</div>
+                        <div class="stat-item"><span class="stat-label">Standard Deviation:</span> ${financialStats.stdDev.toFixed(2)}</div>
+                        <div class="stat-item"><span class="stat-label">Correlation with Depression:</span> ${financialStats.correlation.toFixed(3)}</div>
+                    `;
+                }
+
+                // Sleep Statistics
+                const sleepStats = await calculateSleepStats();
+                if (sleepStats) {
+                    document.getElementById('sleep-stats').innerHTML = `
+                        <div class="stat-item"><span class="stat-label">Mean Sleep Hours:</span> ${sleepStats.mean.toFixed(2)}</div>
+                        <div class="stat-item"><span class="stat-label">Median Sleep Hours:</span> ${sleepStats.median.toFixed(2)}</div>
+                        <div class="stat-item"><span class="stat-label">Standard Deviation:</span> ${sleepStats.stdDev.toFixed(2)}</div>
+                        <div class="stat-item"><span class="stat-label">Correlation with Depression:</span> ${sleepStats.correlation.toFixed(3)}</div>
+                    `;
+                }
+
+                // Dietary Statistics
+                const dietaryStats = await calculateDietaryStats();
+                if (dietaryStats) {
+                    document.getElementById('dietary-stats').innerHTML = `
+                        <div class="stat-item"><span class="stat-label">Mean Diet Quality Score:</span> ${dietaryStats.mean.toFixed(2)}</div>
+                        <div class="stat-item"><span class="stat-label">Median Diet Quality Score:</span> ${dietaryStats.median.toFixed(2)}</div>
+                        <div class="stat-item"><span class="stat-label">Standard Deviation:</span> ${dietaryStats.stdDev.toFixed(2)}</div>
+                        <div class="stat-item"><span class="stat-label">Correlation with Depression:</span> ${dietaryStats.correlation.toFixed(3)}</div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error displaying statistics:', error);
+                document.querySelectorAll('.stats-container').forEach(container => {
+                    container.innerHTML += '<p class="error">Error loading statistics. Please try again later.</p>';
+                });
+            }
+        }
+
+        // Initialize statistics display when page loads
+        window.addEventListener('load', displayStats);
+    </script>
+</body>
+</html> 

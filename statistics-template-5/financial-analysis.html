@@ -3,101 +3,522 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financial Stress Analysis - Student Mental Health in India</title>
-    
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="style.css" rel="stylesheet">
-    
-    <!-- Google Charts -->
+    <title>Student Mental Health Analysis</title>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <!-- Our analysis script -->
-    <script type="module" src="js/financial_analysis.js"></script>
+    <script src="https://unpkg.com/simple-statistics@7.8.3/dist/simple-statistics.min.js"></script>
+    <script src="js/simpleStatistics.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 36px;
+            font-weight: 700;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eaeaea;
+        }
+        .section {
+            margin-bottom: 30px;
+            border: none;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            background-color: #fff;
+        }
+        .section-header {
+            background-color: #f1f8ff;
+            padding: 18px 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            border-left: 5px solid #4285F4;
+        }
+        .section-header:hover {
+            background-color: #e4f0ff;
+        }
+        .section-header h2 {
+            margin: 0;
+            font-size: 24px;
+            color: #2c3e50;
+        }
+        .section-content {
+            padding: 25px;
+            display: none;
+            background-color: #ffffff;
+        }
+        .section-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        .stat-box {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 4px solid #4285F4;
+        }
+        .stat-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .chart-container {
+            height: 500px;
+            margin: 30px 0;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .toggle-icon {
+            font-size: 24px;
+            transition: transform 0.3s;
+            color: #4285F4;
+        }
+        .section-header.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+        
+        .stat-box strong {
+            font-size: 18px;
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .stat-box em {
+            font-style: italic;
+            color: #7f8c8d;
+            font-size: 15px;
+        }
+        
+        #financial-summary, #sleep-summary, #dietary-summary {
+            background-color: #f1f8ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #DB4437;
+        }
+        
+        #financial-summary strong, #sleep-summary strong, #dietary-summary strong {
+            font-size: 20px;
+            color: #2c3e50;
+        }
+    </style>
 </head>
 <body>
-    <div class="container mt-5">
-        <h1 class="mb-4">Financial Stress and Mental Health</h1>
-        <p class="lead mb-5">Analysis of the relationship between financial stress, academic performance, and mental health among Indian students.</p>
-
-        <!-- Financial stress distribution -->
-        <div class="card mb-4 shadow">
-            <div class="card-body">
-                <h2 class="card-title h4">Financial Stress Distribution</h2>
-                <p class="card-text text-muted">Shows the distribution of financial stress levels and their correlation with depression among students.</p>
-                <div id="financial_stress_distribution" class="chart-container"></div>
+    <div class="container">
+        <h1>Student Mental Health Analysis</h1>
+        
+        <!-- Financial Stress Section -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2>Financial Stress Impact</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="stats-grid">
+                    <div class="stat-box" id="financial-mean"></div>
+                    <div class="stat-box" id="financial-median"></div>
+                    <div class="stat-box" id="financial-std"></div>
+                </div>
+                <div class="stat-box" id="financial-summary"></div>
+                <div class="chart-container">
+                    <div id="financial-chart" style="width: 100%; height: 100%;"></div>
+                </div>
             </div>
         </div>
 
-        <!-- Academic performance -->
-        <div class="card mb-4 shadow">
-            <div class="card-body">
-                <h2 class="card-title h4">Academic Performance</h2>
-                <p class="card-text text-muted">Analyzes the relationship between financial stress, academic results (CGPA), and depression.</p>
-                <div id="academic_performance_chart" class="chart-container"></div>
+        <!-- Sleep Patterns Section -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2>Sleep Pattern Analysis</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="stats-grid">
+                    <div class="stat-box" id="sleep-mean"></div>
+                    <div class="stat-box" id="sleep-median"></div>
+                    <div class="stat-box" id="sleep-std"></div>
+                </div>
+                <div class="stat-box" id="sleep-summary"></div>
+                <div class="chart-container">
+                    <div id="sleep-chart" style="width: 100%; height: 100%;"></div>
+                </div>
             </div>
         </div>
 
-        <!-- Study hours -->
-        <div class="card mb-4 shadow">
-            <div class="card-body">
-                <h2 class="card-title h4">Study Hours and Financial Stress</h2>
-                <p class="card-text text-muted">Examines how financial stress affects students' study hours.</p>
-                <div id="study_hours_chart" class="chart-container"></div>
+        <!-- Dietary Habits Section -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2>Dietary Impact Analysis</h2>
+                <span class="toggle-icon">▼</span>
             </div>
-        </div>
-
-        <!-- Sleep patterns -->
-        <div class="card mb-4 shadow">
-            <div class="card-body">
-                <h2 class="card-title h4">Sleep Patterns</h2>
-                <p class="card-text text-muted">Shows the relationship between financial stress, sleep patterns, and depression.</p>
-                <div id="sleep_pattern_chart" class="chart-container"></div>
-            </div>
-        </div>
-
-        <!-- Dietary habits -->
-        <div class="card mb-4 shadow">
-            <div class="card-body">
-                <h2 class="card-title h4">Dietary Habits</h2>
-                <p class="card-text text-muted">Analyzes the relationship between dietary habits, financial stress, and depression rates.</p>
-                <div id="dietary_habits_chart" class="chart-container"></div>
-            </div>
-        </div>
-
-        <!-- Family history -->
-        <div class="card mb-4 shadow">
-            <div class="card-body">
-                <h2 class="card-title h4">Family History of Mental Illness</h2>
-                <p class="card-text text-muted">Examines the impact of family history of mental illness on depression rates across different financial stress levels.</p>
-                <div id="family_history_chart" class="chart-container"></div>
-            </div>
-        </div>
-
-        <!-- Gender differences -->
-        <div class="card mb-4 shadow">
-            <div class="card-body">
-                <h2 class="card-title h4">Gender Analysis</h2>
-                <p class="card-text text-muted">Analyzes how financial stress affects different genders and their mental health.</p>
-                <div id="gender_analysis_chart" class="chart-container"></div>
-            </div>
-        </div>
-
-        <!-- Key findings -->
-        <div class="card mb-4 shadow">
-            <div class="card-body">
-                <h2 class="card-title h4">Key Findings</h2>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Clear correlation between financial stress and depression</li>
-                    <li class="list-group-item">Impact on academic performance varies with stress levels</li>
-                    <li class="list-group-item">Sleep patterns show strong connection to both stress and depression</li>
-                    <li class="list-group-item">Gender differences in financial stress management</li>
-                </ul>
+            <div class="section-content">
+                <div class="stats-grid">
+                    <div class="stat-box" id="dietary-mean"></div>
+                    <div class="stat-box" id="dietary-median"></div>
+                    <div class="stat-box" id="dietary-std"></div>
+                </div>
+                <div class="stat-box" id="dietary-summary"></div>
+                <div class="chart-container">
+                    <div id="dietary-chart" style="width: 100%; height: 100%;"></div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Chart colors and options
+        const chartColors = {
+            primary: '#4285F4',
+            secondary: '#DB4437',
+            tertiary: '#F4B400',
+            quaternary: '#0F9D58'
+        };
+
+        const baseChartOptions = {
+            titleTextStyle: { 
+                fontSize: 20, 
+                bold: true,
+                color: '#2c3e50'
+            },
+            legend: { 
+                position: 'top',
+                textStyle: {
+                    fontSize: 14,
+                    color: '#333'
+                }
+            },
+            chartArea: { width: '85%', height: '70%' },
+            animation: {
+                startup: true,
+                duration: 1000,
+                easing: 'out'
+            },
+            vAxis: {
+                title: 'Number of Students',
+                titleTextStyle: {
+                    fontSize: 14,
+                    italic: false,
+                    bold: true
+                },
+                gridlines: {
+                    color: '#f2f2f2'
+                }
+            },
+            hAxis: {
+                titleTextStyle: {
+                    fontSize: 14,
+                    italic: false,
+                    bold: true
+                }
+            },
+            annotations: {
+                textStyle: {
+                    fontSize: 12
+                }
+            },
+            tooltip: { 
+                showColorCode: true,
+                textStyle: {
+                    fontSize: 14
+                }
+            }
+        };
+
+        // Draw financial stress chart
+        function drawFinancialChart(data) {
+            console.log("Drawing financial chart with data:", data);
+            const chartData = new google.visualization.DataTable();
+            chartData.addColumn('string', 'Stress Level');
+            chartData.addColumn('number', 'Non-depressed');
+            chartData.addColumn('number', 'Depressed');
+            chartData.addColumn({type: 'string', role: 'annotation'});
+            chartData.addColumn({type: 'string', role: 'annotation'});
+
+            // Process data for visualization
+            const processedData = {};
+            const stressData = {};
+            let totalStudents = 0;
+            
+            data.forEach(row => {
+                if (row.financialStress === '?') return;
+                
+                if (!processedData[row.financialStress]) {
+                    processedData[row.financialStress] = [0, 0];
+                    stressData[row.financialStress] = 0;
+                }
+                
+                const count = parseInt(row.count);
+                processedData[row.financialStress][row.depression] = count;
+                stressData[row.financialStress] += count;
+                totalStudents += count;
+            });
+
+            Object.entries(processedData)
+                .filter(([stress]) => stress !== '?')
+                .sort((a, b) => Number(a[0]) - Number(b[0]))
+                .forEach(([stress, counts]) => {
+                    const nonDepressed = counts[0] || 0;
+                    const depressed = counts[1] || 0;
+                    const total = nonDepressed + depressed;
+                    const nonDepressedPercent = (nonDepressed / total * 100).toFixed(0) + '%';
+                    const depressedPercent = (depressed / total * 100).toFixed(0) + '%';
+                    
+                    chartData.addRow([
+                        `Level ${stress}`, 
+                        nonDepressed, 
+                        depressed,
+                        nonDepressed > 500 ? nonDepressedPercent : null,
+                        depressed > 500 ? depressedPercent : null
+                    ]);
+                });
+
+            const options = {
+                ...baseChartOptions,
+                title: 'Financial Stress Distribution by Depression Status',
+                seriesType: 'bars',
+                series: {
+                    0: { color: chartColors.primary },
+                    1: { color: chartColors.secondary }
+                },
+                isStacked: 'percent'
+            };
+
+            const chartElement = document.getElementById('financial-chart');
+            if (chartElement) {
+                const chart = new google.visualization.ComboChart(chartElement);
+                chart.draw(chartData, options);
+            } else {
+                console.error("Could not find financial-chart element");
+            }
+        }
+
+        // Draw sleep quality chart
+        function drawSleepChart(data) {
+            console.log("Drawing sleep chart with data:", data);
+            const chartData = new google.visualization.DataTable();
+            chartData.addColumn('string', 'Sleep Duration');
+            chartData.addColumn('number', 'Non-depressed');
+            chartData.addColumn('number', 'Depressed');
+            chartData.addColumn({type: 'string', role: 'annotation'});
+            chartData.addColumn({type: 'string', role: 'annotation'});
+
+            // Process data for visualization
+            const processedData = {};
+            let totalStudents = 0;
+            
+            data.forEach(row => {
+                if (row.sleepDuration === 'Others') return;
+                
+                const duration = row.sleepDuration.replace(/['"]/g, '');
+                if (!processedData[duration]) {
+                    processedData[duration] = [0, 0];
+                }
+                
+                const count = parseInt(row.count);
+                processedData[duration][row.depression] = count;
+                totalStudents += count;
+            });
+
+            const sleepOrder = [
+                'Less than 5 hours',
+                '5-6 hours',
+                '7-8 hours',
+                'More than 8 hours'
+            ];
+
+            sleepOrder.forEach(duration => {
+                if (processedData[duration]) {
+                    const nonDepressed = processedData[duration][0] || 0;
+                    const depressed = processedData[duration][1] || 0;
+                    const total = nonDepressed + depressed;
+                    const nonDepressedPercent = (nonDepressed / total * 100).toFixed(0) + '%';
+                    const depressedPercent = (depressed / total * 100).toFixed(0) + '%';
+                    
+                    chartData.addRow([
+                        duration, 
+                        nonDepressed, 
+                        depressed,
+                        nonDepressed > 500 ? nonDepressedPercent : null,
+                        depressed > 500 ? depressedPercent : null
+                    ]);
+                }
+            });
+
+            const options = {
+                ...baseChartOptions,
+                title: 'Sleep Duration Distribution by Depression Status',
+                seriesType: 'bars',
+                series: {
+                    0: { color: chartColors.primary },
+                    1: { color: chartColors.secondary }
+                },
+                isStacked: 'percent'
+            };
+
+            const chartElement = document.getElementById('sleep-chart');
+            if (chartElement) {
+                const chart = new google.visualization.ComboChart(chartElement);
+                chart.draw(chartData, options);
+            } else {
+                console.error("Could not find sleep-chart element");
+            }
+        }
+
+        // Draw dietary habits chart
+        function drawDietaryChart(data) {
+            console.log("Drawing dietary chart with data:", data);
+            const chartData = new google.visualization.DataTable();
+            chartData.addColumn('string', 'Dietary Habits');
+            chartData.addColumn('number', 'Non-depressed');
+            chartData.addColumn('number', 'Depressed');
+            chartData.addColumn({type: 'string', role: 'annotation'});
+            chartData.addColumn({type: 'string', role: 'annotation'});
+
+            // Process data for visualization
+            const processedData = {};
+            let totalStudents = 0;
+            
+            data.forEach(row => {
+                if (row.dietaryHabits === 'Others') return;
+                
+                if (!processedData[row.dietaryHabits]) {
+                    processedData[row.dietaryHabits] = [0, 0];
+                }
+                
+                const count = parseInt(row.count);
+                processedData[row.dietaryHabits][row.depression] = count;
+                totalStudents += count;
+            });
+
+            const dietOrder = ['Healthy', 'Moderate', 'Unhealthy'];
+            dietOrder.forEach(diet => {
+                if (processedData[diet]) {
+                    const nonDepressed = processedData[diet][0] || 0;
+                    const depressed = processedData[diet][1] || 0;
+                    const total = nonDepressed + depressed;
+                    const nonDepressedPercent = (nonDepressed / total * 100).toFixed(0) + '%';
+                    const depressedPercent = (depressed / total * 100).toFixed(0) + '%';
+                    
+                    chartData.addRow([
+                        diet, 
+                        nonDepressed, 
+                        depressed,
+                        nonDepressed > 500 ? nonDepressedPercent : null,
+                        depressed > 500 ? depressedPercent : null
+                    ]);
+                }
+            });
+
+            const options = {
+                ...baseChartOptions,
+                title: 'Dietary Habits Distribution by Depression Status',
+                seriesType: 'bars',
+                series: {
+                    0: { color: chartColors.primary },
+                    1: { color: chartColors.secondary }
+                },
+                isStacked: 'percent'
+            };
+
+            const chartElement = document.getElementById('dietary-chart');
+            if (chartElement) {
+                const chart = new google.visualization.ComboChart(chartElement);
+                chart.draw(chartData, options);
+            } else {
+                console.error("Could not find dietary-chart element");
+            }
+        }
+
+        // Toggle section visibility
+        function toggleSection(header) {
+            const content = header.nextElementSibling;
+            const isActive = content.classList.contains('active');
+            
+            // Close all sections
+            document.querySelectorAll('.section-content').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelectorAll('.section-header').forEach(header => {
+                header.classList.remove('active');
+            });
+            
+            // Open clicked section if it wasn't active
+            if (!isActive) {
+                content.classList.add('active');
+                header.classList.add('active');
+            }
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                console.log("Page loaded, initializing charts...");
+                // Load Google Charts
+                google.charts.load('current', {'packages':['corechart']});
+                google.charts.setOnLoadCallback(async () => {
+                    console.log("Google Charts loaded, fetching data...");
+                    // Calculate and display statistics
+                    const financialData = await calculateFinancialStats();
+                    if (financialData) {
+                        console.log("Financial data received:", financialData);
+                        drawFinancialChart(financialData);
+                    }
+                    
+                    const sleepData = await calculateSleepStats();
+                    if (sleepData) {
+                        console.log("Sleep data received:", sleepData);
+                        drawSleepChart(sleepData);
+                    }
+                    
+                    const dietaryData = await calculateDietaryStats();
+                    if (dietaryData) {
+                        console.log("Dietary data received:", dietaryData);
+                        drawDietaryChart(dietaryData);
+                    }
+                    
+                    // Open first section by default
+                    const firstSection = document.querySelector('.section-header');
+                    if (firstSection) {
+                        toggleSection(firstSection);
+                    }
+                });
+            } catch (error) {
+                console.error('Error initializing page:', error);
+                alert('An error occurred while loading the data. Please try refreshing the page.');
+            }
+        });
+    </script>
 </body>
 </html> 

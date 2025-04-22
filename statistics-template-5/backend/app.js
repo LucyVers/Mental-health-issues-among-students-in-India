@@ -4,6 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import cors from 'cors';
+import { open } from 'sqlite';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -170,5 +171,56 @@ app.get('/api/financial-stress/genderStress', (req, res) => {
     } catch (error) {
         console.error('Error executing gender/stress query:', error);
         res.status(500).json({ error: 'Database error' });
+    }
+});
+
+// API endpoint for financial stress data
+app.get('/api/financial-stress-data', async (req, res) => {
+    try {
+        const db = await open(path.join(__dirname, '../sqlite-databases/student_depression.db'));
+        const data = await db.all(`
+            SELECT financial_stress, depression_score 
+            FROM studentDepression 
+            WHERE financial_stress IS NOT NULL 
+            AND depression_score IS NOT NULL
+        `);
+        res.json(data);
+    } catch (error) {
+        console.error('Error fetching financial stress data:', error);
+        res.status(500).json({ error: 'Failed to fetch financial stress data' });
+    }
+});
+
+// API endpoint for sleep data
+app.get('/api/sleep-data', async (req, res) => {
+    try {
+        const db = await open(path.join(__dirname, '../sqlite-databases/student_depression.db'));
+        const data = await db.all(`
+            SELECT sleep_quality, depression_score 
+            FROM studentDepression 
+            WHERE sleep_quality IS NOT NULL 
+            AND depression_score IS NOT NULL
+        `);
+        res.json(data);
+    } catch (error) {
+        console.error('Error fetching sleep data:', error);
+        res.status(500).json({ error: 'Failed to fetch sleep data' });
+    }
+});
+
+// API endpoint for dietary data
+app.get('/api/dietary-data', async (req, res) => {
+    try {
+        const db = await open(path.join(__dirname, '../sqlite-databases/student_depression.db'));
+        const data = await db.all(`
+            SELECT diet_quality, depression_score 
+            FROM studentDepression 
+            WHERE diet_quality IS NOT NULL 
+            AND depression_score IS NOT NULL
+        `);
+        res.json(data);
+    } catch (error) {
+        console.error('Error fetching dietary data:', error);
+        res.status(500).json({ error: 'Failed to fetch dietary data' });
     }
 });
