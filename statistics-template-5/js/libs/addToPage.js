@@ -1,7 +1,13 @@
 import $ from './shorthand-query-selector.js';
 
-// ironboy
-// add html to page
-export default function addToPage(html, selector = 'main') {
-  $(selector).innerHTML += html;
+// Utility function to add HTML elements to the page
+function addToPage(html) {
+  const main = document.querySelector('main');
+  if (main) {
+    const div = document.createElement('div');
+    div.innerHTML = html;
+    main.appendChild(div);
+  }
 }
+
+export default addToPage;

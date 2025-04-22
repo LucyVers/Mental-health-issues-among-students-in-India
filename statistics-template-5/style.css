@@ -1,5 +1,7 @@
 body {
   font-size: 20px;
+  background-color: #f8f9fa;
+  padding-bottom: 50px;
 }
 
 body.with-menu {
@@ -23,6 +25,7 @@ h5,
 h6 {
   margin-bottom: 3px;
   margin-top: 20px !important;
+  color: #333;
 }
 
 p {
@@ -39,4 +42,32 @@ td.right:nth-child(1) {
 
 table {
   border: 1px solid #000;
+}
+
+.chart-container {
+  width: 100%;
+  min-height: 400px;
+  margin: 20px 0;
+}
+
+.card {
+  background-color: white;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.shadow {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+  max-width: 1200px;
+}
+
+.lead {
+  color: #666;
 }

@@ -2,6 +2,11 @@ import express from 'express';
 import Database from 'better-sqlite3';
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
+import cors from 'cors';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Port to start the web server on
 const port = 3005
@@ -9,11 +14,16 @@ const port = 3005
 // Create a web server 
 const app = express();
 
-// Serve the files in the main folder
-app.use(express.static(path.join(import.meta.dirname, '..')));
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use(express.static(path.join(__dirname, '..')));
 
 // Start the web server
-app.listen(port, () => console.log(`Listening on http://localhost:${port}`));
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+  console.log('Static files served from:', path.join(__dirname, '..'));
+});
 
 // Routes for live reload
 app.get('/api/is-real-backend', (_req, res) => res.send(true));
@@ -25,14 +35,17 @@ app.get('/api/reload-if-closes', (_req, res) => {
   setInterval(() => res.write('data: ping\n\n '), 20000);
 });
 
-// Read settings for which SQLite-database to use
-let dbFolder = path.join(import.meta.dirname, '..', 'sqlite-databases');
-let databaseToUse = fs.readFileSync(path.join(dbFolder, 'database-in-use.json'), 'utf-8').slice(1, -1);
-databaseToUse = path.join(path.join(dbFolder, databaseToUse));
-// databse connection
-let db;
-if (fs.existsSync(databaseToUse)) {
-  db = new Database(databaseToUse);
+// Database connection
+const dbPath = path.join(__dirname, '../sqlite-databases/student_depression.db');
+console.log('Connecting to database at:', dbPath);
+const db = new Database(dbPath);
+
+// Test database connection
+try {
+    const test = db.prepare('SELECT COUNT(*) as count FROM studentDepression').get();
+    console.log('Database connection successful. Row count:', test.count);
+} catch (error) {
+    console.error('Database connection error:', error);
 }
 
 // route for database query (SELECT:s only)
@@ -77,4 +90,85 @@ app.get('/api/getMainScript', (_req, res) => {
 
 app.get('/api/chartSettings', (_req, res) => {
   res.sendFile()
+});
+
+// API endpoint for database queries
+app.post('/api/query', (req, res) => {
+  console.log('Received query request:', req.body.query);
+  const { query } = req.body;
+  
+  try {
+    const stmt = db.prepare(query);
+    const rows = stmt.all();
+    console.log('Query successful, returning rows:', rows);
+    res.json(rows);
+  } catch (error) {
+    console.error('Database error:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Serve index.html for root path
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../pressure-analysis.html'));
+});
+
+// Load SQL queries
+const queriesPath = path.join(__dirname, '../../documentation/analysis/queries/financial_stress_analysis.sql');
+const sqlQueries = fs.readFileSync(queriesPath, 'utf8').split(';');
+
+// API endpoints for financial stress analysis
+app.get('/api/financial-stress/stressDistribution', (req, res) => {
+    const query = sqlQueries[0]; // First query from our SQL file
+    try {
+        const results = db.prepare(query).all();
+        res.json(results);
+    } catch (error) {
+        console.error('Error executing stress distribution query:', error);
+        res.status(500).json({ error: 'Database error' });
+    }
+});
+
+app.get('/api/financial-stress/academicPerformance', (req, res) => {
+    const query = sqlQueries[1]; // Second query
+    try {
+        const results = db.prepare(query).all();
+        res.json(results);
+    } catch (error) {
+        console.error('Error executing academic performance query:', error);
+        res.status(500).json({ error: 'Database error' });
+    }
+});
+
+app.get('/api/financial-stress/workStudy', (req, res) => {
+    const query = sqlQueries[2]; // Third query
+    try {
+        const results = db.prepare(query).all();
+        res.json(results);
+    } catch (error) {
+        console.error('Error executing work/study query:', error);
+        res.status(500).json({ error: 'Database error' });
+    }
+});
+
+app.get('/api/financial-stress/sleepStress', (req, res) => {
+    const query = sqlQueries[3]; // Fourth query
+    try {
+        const results = db.prepare(query).all();
+        res.json(results);
+    } catch (error) {
+        console.error('Error executing sleep/stress query:', error);
+        res.status(500).json({ error: 'Database error' });
+    }
+});
+
+app.get('/api/financial-stress/genderStress', (req, res) => {
+    const query = sqlQueries[4]; // Fifth query
+    try {
+        const results = db.prepare(query).all();
+        res.json(results);
+    } catch (error) {
+        console.error('Error executing gender/stress query:', error);
+        res.status(500).json({ error: 'Database error' });
+    }
 });

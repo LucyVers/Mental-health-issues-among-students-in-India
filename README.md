@@ -1,46 +1,108 @@
-# Mental Health Issues Among Students in India
+# Student Mental Health Analysis Project
 
-## Project Overview
-This project analyzes mental health issues among university students in India through a comprehensive survey analysis.
+## Overview
+This project analyzes mental health issues among university students in India, focusing on the relationships between financial stress, depression, and various lifestyle factors.
 
-## GitHub Repository
-https://github.com/LucyVers/Mental-health-issues-among-students-in-India.git
+## Copyright Notice
+© 2025 Lucy S. All rights reserved.
+This project and all its contents are protected by copyright law. Any use, reproduction, or distribution of the materials contained in this project requires explicit permission from the copyright holder (Lucy Sonberg).
 
 ## Project Structure
 ```
-project/
 ├── documentation/
-│   ├── findings/     # Detailed findings and results
-│   ├── analysis/     # Analysis methods and procedures
-│   └── context/      # Indian educational and social context
-├── statistics-template-5/  # Main application code
-└── data/            # Dataset and database files
+│   ├── analysis/
+│   │   ├── financial_stress_analysis.md      # Detailed analysis findings
+│   │   ├── visualizations.md                 # Visualization documentation
+│   │   └── queries/
+│   │       ├── create_new_table.sql         # Database table creation
+│   │       ├── initial_analysis.sql         # Initial data exploration
+│   │       └── updated_analysis_queries.sql  # Advanced analysis queries
+│   └── images/
+│       ├── financial_stress_distribution.png
+│       ├── academic_performance.png
+│       ├── work_study_hours.png
+│       ├── sleep_patterns.png
+│       ├── gender_analysis.png
+│       ├── dietary_habits.png
+│       └── family_history.png
+├── data/
+│   ├── student_mental_health.csv            # Original dataset
+│   └── student_mental_health.db             # SQLite database
+├── statistics-template-5/
+│   ├── js/
+│   │   ├── libs/
+│   │   │   ├── addToPage.js                # UI utility functions
+│   │   │   ├── dbQuery.js                  # Database query handler
+│   │   │   └── makeChartFriendly.js       # Chart data processor
+│   │   ├── financial_analysis.js           # Main visualization code
+│   │   ├── pressure_analysis.js            # Pressure analysis charts
+│   │   └── dietary_analysis.js             # Dietary analysis charts
+│   ├── style.css                           # Custom styling
+│   ├── financial-analysis.html             # Main analysis page
+│   ├── pressure-analysis.html              # Pressure analysis page
+│   ├── package.json                        # Project dependencies
+│   └── package-lock.json                   # Dependency lock file
+├── .gitignore                              # Git ignore rules
+└── README.md                               # Project documentation
 ```
 
-## Setup Instructions
-1. Clone the repository
-2. Navigate to the statistics-template-5 directory
-3. Install dependencies: `npm install`
-4. Start the development server: `npm start`
+## Key Features
+- Interactive data visualizations using Google Charts
+- Comprehensive analysis of:
+  - Financial stress distribution
+  - Academic performance correlation
+  - Work/study hours impact
+  - Sleep patterns
+  - Gender differences
+  - Dietary habits
+  - Family history influence
+
+## Getting Started
+1. Install dependencies:
+   ```bash
+   cd statistics-template-5
+   npm install
+   ```
+
+2. Start the development server:
+   ```bash
+   npm start
+   ```
+
+3. View the visualizations:
+   - Open `http://localhost:3005/financial-analysis.html` in your web browser
+   - All charts are interactive with hover tooltips and click-to-highlight functionality
+
+## Documentation
+- Detailed analysis available in `documentation/analysis/financial_stress_analysis.md`
+- Visualization guide in `documentation/analysis/visualizations.md`
+- SQL queries in `documentation/analysis/queries/`
+
+## Key Findings
+1. Strong correlation between financial stress and depression rates
+2. Stable academic performance across stress levels
+3. Increased work/study hours with higher financial stress
+4. Significant impact of sleep patterns on mental health
+5. Minimal gender differences in depression rates
+6. Protective effect of healthy dietary habits
+7. Increased vulnerability with family history of mental illness
+
+## Technologies Used
+- Node.js
+- SQLite
+- Google Charts
+- Bootstrap 5
+
+## Future Improvements
+- Add export functionality for charts
+- Implement additional filtering options
+- Include trend analysis over time
+- Add comparative analysis with other universities
+
+## License
+All rights reserved. Unauthorized use, reproduction, or distribution of this project's contents is strictly prohibited.
 
 ## Project Timeline
 - Project Start: March 31, 2025
 - Part 1 Deadline: April 30, 2025
 - Final Project Deadline: May 4, 2025
-
-## Copyright Notice
-© 2024 Lucy S. All rights reserved.
-This project and all its contents are protected by copyright law. Any use, reproduction, or distribution of the materials contained in this project requires explicit permission from the copyright holder (Lucy S).
-
-## Project Timeline
-- Part 1: [Start Date] - [End Date]
-- Part 2: [Start Date] - [End Date]
-
-## Getting Started
-[To be added as we progress with the project]
-
-## Dependencies
-[To be added as we progress with the project]
-
-## License
-All rights reserved. Unauthorized use, reproduction, or distribution of this project's contents is strictly prohibited.

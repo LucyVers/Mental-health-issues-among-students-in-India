@@ -2,17 +2,17 @@
   "name": "statistics-template",
   "version": "5.0.0",
   "type": "module",
-  "main": "main.js",
+  "description": "Student Mental Health Analysis Visualization",
+  "main": "backend/app.js",
   "scripts": {
-    "start": "nodemon backend/app.js"
+    "start": "node backend/app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
-    "better-sqlite3": "^11.9.1",
-    "express": "^4.21.2",
-    "nodemon": "^3.1.9"
+    "better-sqlite3": "^9.4.0",
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
   }
 }
