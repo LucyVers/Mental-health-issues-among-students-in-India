@@ -220,6 +220,43 @@
     <div class="container">
         <h1>Student Mental Health Analysis</h1>
         
+        <!-- Executive Summary -->
+        <div class="section">
+            <div class="section-header active" onclick="toggleSection(this)">
+                <h2>Executive Summary</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content active" style="background-color: #f9f9f9; padding: 25px; border-left: 5px solid #4285F4;">
+                <h3 style="color: #2c3e50; margin-top: 0;">Key Insights: The Mental Health Crisis Among Indian Students</h3>
+                
+                <p>This analysis of nearly 28,000 university students in India reveals strong connections between lifestyle factors and depression. My findings identify three critical factors with significant impact on student mental health:</p>
+                
+                <div style="display: flex; flex-wrap: wrap; gap: 20px; margin: 20px 0;">
+                    <div style="flex: 1; min-width: 300px; background-color: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-left: 4px solid #DB4437;">
+                        <h4 style="margin-top: 0; color: #DB4437;">1. Financial Stress</h4>
+                        <p><strong>Impact: Very High (r=0.97)</strong></p>
+                        <p>81.3% of students with the highest financial stress level report depression symptoms. This is the strongest predictor of depression among all factors studied.</p>
+                    </div>
+                    
+                    <div style="flex: 1; min-width: 300px; background-color: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-left: 4px solid #0F9D58;">
+                        <h4 style="margin-top: 0; color: #0F9D58;">2. Dietary Habits</h4>
+                        <p><strong>Impact: High (r=-0.97)</strong></p>
+                        <p>70.7% of students with unhealthy diets report depression symptoms, compared to only 45.4% of those with healthy diets.</p>
+                    </div>
+                    
+                    <div style="flex: 1; min-width: 300px; background-color: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-left: 4px solid #4285F4;">
+                        <h4 style="margin-top: 0; color: #4285F4;">3. Sleep Duration</h4>
+                        <p><strong>Impact: High (r=-0.84)</strong></p>
+                        <p>64.5% of students sleeping less than 5 hours report depression symptoms. More than 52% of students get less than recommended sleep.</p>
+                    </div>
+                </div>
+                
+                <p><strong>Implications:</strong> This analysis suggests that interventions targeting financial support systems would have the greatest impact on student mental health, followed by nutrition education and sleep health initiatives.</p>
+                
+                <p style="font-style: italic; margin-top: 20px;">The following sections provide detailed analysis of each factor, their relationships to depression, and comparative impact assessment.</p>
+            </div>
+        </div>
+        
         <!-- Financial Stress Section -->
         <div class="section">
             <div class="section-header" onclick="toggleSection(this)">
@@ -227,6 +264,14 @@
                 <span class="toggle-icon">▼</span>
             </div>
             <div class="section-content">
+                <!-- Narrative text connecting to the story -->
+                <div style="background-color: #f1f8ff; padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #4285F4;">
+                    <h3 style="margin-top: 0; color: #2c3e50;">The Financial Burden on Student Mental Health</h3>
+                    <p>Financial stress emerges as the most powerful predictor of depression among university students in India. My analysis reveals a clear and concerning pattern: as financial stress increases, depression rates rise dramatically.</p>
+                    <p>This relationship is particularly alarming at higher stress levels, where over 80% of students report depression symptoms. The strength of this correlation (r=0.97) suggests that financial pressure is not merely a contributor but potentially a direct cause of mental health deterioration in the academic environment.</p>
+                    <p>The data tells a compelling story of how economic pressures create a cascade of negative effects, potentially impacting study focus, sleep quality, and overall wellbeing.</p>
+                </div>
+                
                 <div class="stats-grid">
                     <div class="stat-box" id="financial-mean"></div>
                     <div class="stat-box" id="financial-median"></div>
@@ -235,6 +280,12 @@
                 <div class="stat-box" id="financial-summary"></div>
                 <div class="chart-container">
                     <div id="financial-chart" style="width: 100%; height: 100%;"></div>
+                </div>
+                
+                <!-- Additional narrative conclusion -->
+                <div style="background-color: #f8f8f8; padding: 15px; border-radius: 8px; margin-top: 20px; border-left: 4px solid #DB4437;">
+                    <h4 style="margin-top: 0; color: #DB4437;">Implications for Intervention</h4>
+                    <p>The strong financial stress correlation suggests that institutional policies addressing student financial support could have the most significant impact on improving mental health outcomes. Potential interventions might include expanded scholarship programs, part-time work opportunities, and financial management workshops.</p>
                 </div>
             </div>
         </div>
@@ -246,6 +297,14 @@
                 <span class="toggle-icon">▼</span>
             </div>
             <div class="section-content">
+                <!-- Narrative text connecting to the story -->
+                <div style="background-color: #f1f8ff; padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #4285F4;">
+                    <h3 style="margin-top: 0; color: #2c3e50;">The Sleep-Depression Connection</h3>
+                    <p>Sleep emerges as the third most influential factor in my analysis, with a strong negative correlation (r=-0.84) between sleep duration and depression. This relationship demonstrates how physical health factors directly impact mental wellbeing.</p>
+                    <p>Most concerning is that over half of surveyed students report inadequate sleep (less than 6 hours), with those sleeping less than 5 hours showing the highest depression rates (64.5%). This sleep crisis appears to be widespread among the student population.</p>
+                    <p>The data reveals how academic pressures, potentially combined with financial stress, may be forcing students to sacrifice sleep quality, creating a vicious cycle that damages mental health.</p>
+                </div>
+                
                 <div class="stats-grid">
                     <div class="stat-box" id="sleep-mean"></div>
                     <div class="stat-box" id="sleep-median"></div>
@@ -254,6 +313,12 @@
                 <div class="stat-box" id="sleep-summary"></div>
                 <div class="chart-container">
                     <div id="sleep-chart" style="width: 100%; height: 100%;"></div>
+                </div>
+                
+                <!-- Additional narrative conclusion -->
+                <div style="background-color: #f8f8f8; padding: 15px; border-radius: 8px; margin-top: 20px; border-left: 4px solid #4285F4;">
+                    <h4 style="margin-top: 0; color: #4285F4;">Implications for Intervention</h4>
+                    <p>The strong sleep-depression relationship suggests that sleep health initiatives would be highly beneficial. Universities could implement awareness campaigns about healthy sleep habits, adjust class scheduling to support better sleep patterns, and provide resources for addressing sleep disorders.</p>
                 </div>
             </div>
         </div>
@@ -265,6 +330,14 @@
                 <span class="toggle-icon">▼</span>
             </div>
             <div class="section-content">
+                <!-- Narrative text connecting to the story -->
+                <div style="background-color: #f1f8ff; padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #4285F4;">
+                    <h3 style="margin-top: 0; color: #2c3e50;">Nutrition as a Mental Health Factor</h3>
+                    <p>My analysis reveals dietary habits as the second strongest predictor of depression among university students, with a strong negative correlation (r=-0.97) between healthier diets and depression rates.</p>
+                    <p>The data shows a clear pattern: 70.7% of students with unhealthy diets report depression symptoms, compared to just 45.4% among those with healthy eating habits. Most concerning is that only 27.4% of students maintain healthy diets, suggesting this is a widespread issue.</p>
+                    <p>This strong relationship may reflect both the direct biochemical impact of nutrition on brain function and the indirect effects of financial constraints limiting access to quality food options.</p>
+                </div>
+                
                 <div class="stats-grid">
                     <div class="stat-box" id="dietary-mean"></div>
                     <div class="stat-box" id="dietary-median"></div>
@@ -274,11 +347,17 @@
                 <div class="chart-container">
                     <div id="dietary-chart" style="width: 100%; height: 100%;"></div>
                 </div>
+                
+                <!-- Additional narrative conclusion -->
+                <div style="background-color: #f8f8f8; padding: 15px; border-radius: 8px; margin-top: 20px; border-left: 4px solid #0F9D58;">
+                    <h4 style="margin-top: 0; color: #0F9D58;">Implications for Intervention</h4>
+                    <p>The strong dietary-depression relationship suggests that nutrition-focused interventions could significantly impact student mental health. Universities could improve healthy food options in dining halls, provide nutrition education, and ensure affordable access to quality meals for all students.</p>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- New section for comparative statistical analysis -->
+    <!-- Section for comparative statistical analysis -->
     <div class="container">
         <div class="section">
             <div class="section-header" onclick="toggleSection(this)">
@@ -286,6 +365,13 @@
                 <span class="toggle-icon">▼</span>
             </div>
             <div class="section-content">
+                <!-- Narrative text for comparative analysis -->
+                <div style="background-color: #f1f8ff; padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #4285F4;">
+                    <h3 style="margin-top: 0; color: #2c3e50;">Connecting the Factors: A Holistic View</h3>
+                    <p>When analyzed together, the three key factors paint a comprehensive picture of student mental health challenges in India. The comparative analysis reveals not only which factors have the strongest statistical relationships with depression, but also how they might interact with each other.</p>
+                    <p>Financial stress emerges as the most impactful factor, suggesting it may be a root cause that affects other areas - students with financial difficulties may sacrifice both sleep quality and healthy food options. This indicates that effective mental health interventions should address these interconnected factors rather than treating them in isolation.</p>
+                </div>
+                
                 <p>This section provides a comparative analysis of the three key factors affecting student mental health: financial stress, sleep patterns, and dietary habits.</p>
                 
                 <table class="comparative-table">
@@ -309,6 +395,20 @@
                     <p>The comparative analysis reveals the relative impact of each factor on student depression rates. 
                     This comparison helps identify which factors should be prioritized in interventions aimed at improving student mental health.</p>
                     <p id="ranking-conclusion"></p>
+                </div>
+                
+                <!-- Final conclusions -->
+                <div style="background-color: #f8f8f8; padding: 20px; border-radius: 8px; margin-top: 25px; border-left: 4px solid #333;">
+                    <h3 style="margin-top: 0; color: #2c3e50;">Recommendations for Action</h3>
+                    <p>Based on my comprehensive analysis of nearly 28,000 student responses, I recommend a three-tier intervention approach:</p>
+                    
+                    <ol style="margin-top: 15px;">
+                        <li><strong>Priority 1: Financial Support Systems</strong> - Expand scholarship programs, provide affordable housing options, and develop financial literacy programs to address the most influential factor.</li>
+                        <li><strong>Priority 2: Nutrition Programs</strong> - Improve campus food options, subsidize healthy meal plans, and provide nutrition education to address the second strongest factor.</li>
+                        <li><strong>Priority 3: Sleep Health Initiatives</strong> - Develop sleep awareness campaigns, provide resources for addressing sleep disorders, and consider class scheduling that supports healthy sleep patterns.</li>
+                    </ol>
+                    
+                    <p style="margin-top: 15px;">Additionally, universities should consider how these factors interact, as financial stress may drive poor dietary choices and inadequate sleep. A holistic approach that addresses multiple factors simultaneously may provide the most effective intervention strategy.</p>
                 </div>
             </div>
         </div>
