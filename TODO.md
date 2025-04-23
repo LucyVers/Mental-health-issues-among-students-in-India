@@ -91,10 +91,35 @@
 
 ### Social Context Integration
 - [ ] Research the Indian university education system
+  - [ ] Structure of universities (public vs private)
+  - [ ] Ranking and prestige of institutions
+  - [ ] Academic calendar and semester structure
+  - [ ] Credit system and degree requirements
 - [ ] Gather information about social groups attending universities in India
+  - [ ] Caste system impact on education
+  - [ ] Regional disparities in education access
+  - [ ] Gender differences in education opportunities
+  - [ ] Urban vs rural student challenges
 - [ ] Investigate how students finance their education in India
+  - [ ] Average tuition costs at different institution types
+  - [ ] Scholarship availability and criteria
+  - [ ] Government support programs
+  - [ ] Student loan options and burden on families
 - [ ] Research if students typically work while studying in India
+  - [ ] Prevalence of working students
+  - [ ] Part-time job opportunities for students
+  - [ ] Balance between academic and work responsibilities
+- [ ] Research student living conditions
+  - [ ] Housing situation (dormitories vs commuting)
+  - [ ] Food options and accessibility
+  - [ ] Transportation considerations
+- [ ] Research mental health support systems
+  - [ ] Availability of counseling services
+  - [ ] Stigma around mental health issues
+  - [ ] Cultural attitudes toward depression
 - [ ] Weave social context into the data narrative
+  - [ ] Create content connecting research findings to data analysis
+  - [ ] Develop visualizations that incorporate cultural context
 
 ### Cross-factor Analysis
 - [ ] Analyze how multiple factors interact together
@@ -116,3 +141,4 @@
 - The social context of Indian university education must be researched and integrated
 - Need to focus on creating a cohesive story across multiple pages while maintaining scientific rigor
 - All changes should be committed regularly to the GitHub repository 
+- Research folder created at documentation/context/india_research/ for storing all India-related findings 
