@@ -125,7 +125,7 @@ The final section translates all analysis into actionable insights:
 The footer section of the visualization page includes:
 - Creator attribution (Lucy Sonberg)
 - Project title and scope
-- Date of analysis (Mars 31 - May 4, 2025)
+- Date of analysis (March 31 - May 4, 2025)
 - Methodology overview, including correlation calculation adjustments
 - Data filtering methodology
 - Copyright and data usage information
@@ -156,4 +156,4 @@ The storytelling approach transforms raw data into meaningful insights that can 
 ---
 
 Created by: Lucy Sonberg  
-Date: Mars 31 - May 4, 2025 
+Date: March 31 - May 4, 2025 
