@@ -68,22 +68,51 @@
 - [x] Review and ensure story flow is clear and engaging
 - [x] Prepare a concise executive summary
 
-## Future Tasks (DEL2)
-[Keeping these for reference but focusing on DEL1 first]
+## Tasks for DEL2 (VG Requirements)
 
-### Enhanced Analysis
-- [ ] Perform cross-factor analysis
-- [ ] Create comprehensive recommendations
+### Multiple Page Website Creation
+- [ ] Create a multi-page website structure
+- [ ] Design a navigation menu for all pages
+- [ ] Ensure consistent design across all pages
+- [ ] Create a homepage with project overview and links to analysis sections
 
-### Documentation Completion
-- [ ] Review and update all documentation
-- [ ] Create executive summary
-- [ ] Prepare presentation materials
+### Interactive Elements (User Controls)
+- [ ] Implement dropdown filters for data visualization
+- [ ] Create interactive controls for data selection
+- [ ] Add options to filter data by various parameters
+- [ ] Implement responsive design for all interactive elements
+
+### Advanced Statistical Analysis
+- [ ] Test if variables follow normal distribution
+- [ ] Conduct at least one t-test (hypothesis testing)
+- [ ] Document and explain the null hypothesis
+- [ ] Analyze and interpret t-test results
+- [ ] Explore causality vs. correlation in the findings
+
+### Social Context Integration
+- [ ] Research the Indian university education system
+- [ ] Gather information about social groups attending universities in India
+- [ ] Investigate how students finance their education in India
+- [ ] Research if students typically work while studying in India
+- [ ] Weave social context into the data narrative
+
+### Cross-factor Analysis
+- [ ] Analyze how multiple factors interact together
+- [ ] Identify potential causal relationships between factors
+- [ ] Look for hidden variables that might explain correlations
+- [ ] Create visualizations showing multi-factor relationships
+
+### Comprehensive Report
+- [ ] Create a coherent "red thread" connecting all pages
+- [ ] Ensure the narrative is supported by data without overreaching
+- [ ] Create a comprehensive executive summary of all findings
+- [ ] Develop clear, actionable recommendations based on the analysis
+- [ ] Prepare final documentation of all methods and findings
 
 ## Notes
 - DEL1 is now complete with all requirements fulfilled!
-- The visualization includes interactive elements, statistical analysis, and a narrative structure
-- Statistical analysis has been improved to show more realistic correlation values
-- Comprehensive documentation has been created for all aspects of the project
-- All changes have been committed to the GitHub repository
-- The next steps would be to begin work on DEL2 requirements 
+- DEL2 requires creating a multi-page website with interactive elements
+- Advanced statistical analysis including t-tests and normal distribution tests are needed
+- The social context of Indian university education must be researched and integrated
+- Need to focus on creating a cohesive story across multiple pages while maintaining scientific rigor
+- All changes should be committed regularly to the GitHub repository 
