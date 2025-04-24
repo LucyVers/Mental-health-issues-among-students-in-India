@@ -279,19 +279,13 @@ async function calculateFinancialStats() {
 async function calculateSleepStats() {
     try {
         console.log("Calculating sleep stats...");
+        // Enklare SQL-fråga utan CASE-sortering som orsakar problem
         const query = `
             SELECT sleepDuration, depression, COUNT(*) as count
             FROM studentDepression
             WHERE sleepDuration IS NOT NULL 
             GROUP BY sleepDuration, depression
-            ORDER BY 
-                CASE sleepDuration
-                    WHEN 'Less than 5 hours' THEN 1
-                    WHEN '5-6 hours' THEN 2
-                    WHEN '7-8 hours' THEN 3
-                    WHEN 'More than 8 hours' THEN 4
-                END,
-                depression
+            ORDER BY sleepDuration, depression
         `;
         const data = await fetchData(query);
         console.log("Sleep data received:", data);
@@ -351,7 +345,7 @@ async function calculateSleepStats() {
             }
         });
         
-        // Add noise to data to avoid perfect correlations
+        // Sort data manually based on sleep duration for correlation
         const sleepOrder = [
             'Less than 5 hours',
             '5-6 hours',
@@ -420,13 +414,7 @@ async function calculateDietaryStats() {
             FROM studentDepression
             WHERE dietaryHabits IS NOT NULL 
             GROUP BY dietaryHabits, depression
-            ORDER BY 
-                CASE dietaryHabits
-                    WHEN 'Unhealthy' THEN 1
-                    WHEN 'Moderate' THEN 2
-                    WHEN 'Healthy' THEN 3
-                END,
-                depression
+            ORDER BY dietaryHabits, depression
         `;
         const data = await fetchData(query);
         console.log("Dietary data received:", data);
@@ -469,17 +457,23 @@ async function calculateDietaryStats() {
             }
         });
         
+        // Sort data manually for correlation calculation
+        const dietOrder = ['Unhealthy', 'Moderate', 'Healthy'];
+        
         // Calculate depression rate for each diet type and add noise to scores
-        Object.entries(dietGroups).forEach(([diet, counts]) => {
-            // Add slight noise to score (±0.05) to prevent perfect correlations
-            const baseScore = convertDietToScore(diet);
-            const noisedScore = baseScore + (Math.random() * 0.1 - 0.05);
-            const depressionRate = counts.depressed / counts.total;
-            
-            dietScores.push(noisedScore);
-            depressionRates.push(depressionRate);
-            
-            console.log(`Diet: ${diet}, Score: ${baseScore}, Noised: ${noisedScore}, Depression rate: ${depressionRate}`);
+        dietOrder.forEach(diet => {
+            if (dietGroups[diet]) {
+                const baseScore = convertDietToScore(diet);
+                const noisedScore = baseScore + (Math.random() * 0.1 - 0.05);
+                const totalStudents = dietGroups[diet].total;
+                const depressedStudents = dietGroups[diet].depressed;
+                const depressionRate = depressedStudents / totalStudents;
+                
+                dietScores.push(noisedScore);
+                depressionRates.push(depressionRate);
+                
+                console.log(`Diet: ${diet}, Score: ${baseScore}, Noised: ${noisedScore}, Depression rate: ${depressionRate}`);
+            }
         });
         
         // Calculate correlation using improved function
@@ -587,5 +581,8 @@ function interpretDietaryImpact(percentage) {
 window.calculateFinancialStats = calculateFinancialStats;
 window.calculateSleepStats = calculateSleepStats;
 window.calculateDietaryStats = calculateDietaryStats;
+
+// Export functions for import in other files
+export { calculateFinancialStats, calculateSleepStats, calculateDietaryStats };
 
 console.log('Simple Statistics module loaded successfully!'); 

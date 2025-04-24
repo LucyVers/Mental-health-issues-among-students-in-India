@@ -4,7 +4,7 @@
 import addToPage from './libs/addToPage.js';
 import dbQuery from './libs/dbQuery.js';
 import makeChartFriendly from './libs/makeChartFriendly.js';
-import { calculateFinancialStressStats, calculateSleepStats, calculateDietaryStats } from './simpleStatistics.js';
+import { calculateFinancialStats, calculateSleepStats, calculateDietaryStats } from './simpleStatistics.js';
 
 // Shared chart styling
 const chartColors = {
@@ -118,7 +118,7 @@ async function drawFinancialStressDistribution() {
         };
 
         const chart = new google.visualization.ComboChart(
-            document.getElementById('financial_stress_distribution')
+            document.getElementById('financial-chart')
         );
         chart.draw(chartData, options);
         console.log('Financial stress distribution chart drawn successfully');
@@ -186,7 +186,7 @@ async function drawAcademicPerformance() {
         };
 
         const chart = new google.visualization.ComboChart(
-            document.getElementById('academic_performance_chart')
+            document.getElementById('financial-chart')
         );
         chart.draw(chartData, options);
         console.log('Academic performance chart drawn successfully');
@@ -253,7 +253,7 @@ async function drawStudyHoursChart() {
         };
 
         const chart = new google.visualization.ComboChart(
-            document.getElementById('study_hours_chart')
+            document.getElementById('financial-chart')
         );
         chart.draw(chartData, options);
         console.log('Work/study hours chart drawn successfully');
@@ -286,10 +286,11 @@ async function drawSleepPatternChart() {
                     WHEN 'High Financial Stress' THEN 4
                 END,
                 CASE sleepDuration
-                    WHEN 'Less than 6 hours' THEN 1
-                    WHEN '6-7 hours' THEN 2
-                    WHEN '7-8 hours' THEN 3
-                    WHEN 'More than 8 hours' THEN 4
+                    WHEN "'Less than 5 hours'" THEN 1
+                    WHEN "'5-6 hours'" THEN 2
+                    WHEN "'7-8 hours'" THEN 3
+                    WHEN "'More than 8 hours'" THEN 4
+                    ELSE 5
                 END
         `);
 
@@ -340,7 +341,7 @@ async function drawSleepPatternChart() {
         };
 
         const chart = new google.visualization.ComboChart(
-            document.getElementById('sleep_pattern_chart')
+            document.getElementById('sleep-chart')
         );
         chart.draw(chartData, options);
         console.log('Sleep pattern chart drawn successfully');
@@ -410,7 +411,7 @@ async function drawGenderAnalysisChart() {
         };
 
         const chart = new google.visualization.ColumnChart(
-            document.getElementById('gender_analysis_chart')
+            document.getElementById('financial-chart')
         );
         chart.draw(chartData, options);
         console.log('Gender analysis chart drawn successfully');
@@ -492,7 +493,7 @@ async function drawDietaryHabitsChart() {
         };
 
         const chart = new google.visualization.ComboChart(
-            document.getElementById('dietary_habits_chart')
+            document.getElementById('dietary-chart')
         );
         chart.draw(chartData, options);
         console.log('Dietary habits chart drawn successfully');
@@ -574,7 +575,7 @@ async function drawFamilyHistoryChart() {
         };
 
         const chart = new google.visualization.ComboChart(
-            document.getElementById('family_history_chart')
+            document.getElementById('dietary-chart')
         );
         chart.draw(chartData, options);
         console.log('Family history chart drawn successfully');
@@ -608,7 +609,7 @@ async function initializeCharts() {
     try {
         // Load all statistics
         const [financialStats, sleepStats, dietaryStats] = await Promise.all([
-            calculateFinancialStressStats(),
+            calculateFinancialStats(),
             calculateSleepStats(),
             calculateDietaryStats()
         ]);

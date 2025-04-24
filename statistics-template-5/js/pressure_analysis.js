@@ -1,9 +1,7 @@
 // Pressure Analysis Visualizations
-// Created: April 20, 2025
+// Created: April 20, 2023
 
-import addToPage from './libs/addToPage.js';
 import dbQuery from './libs/dbQuery.js';
-import makeChartFriendly from './libs/makeChartFriendly.js';
 
 // Shared chart styling
 const chartColors = {
@@ -60,6 +58,13 @@ const baseOptions = {
 
 async function drawPressureDistributionChart() {
   try {
+    // Check if the container exists before proceeding
+    const container = document.getElementById('pressure_distribution_chart');
+    if (!container) {
+      console.warn("Container 'pressure_distribution_chart' not found");
+      return;
+    }
+    
     const response = await fetch('/api/query', {
       method: 'POST',
       headers: {
@@ -138,9 +143,7 @@ async function drawPressureDistributionChart() {
       }
     };
 
-    const chart = new google.visualization.ComboChart(
-      document.getElementById('pressure_distribution_chart')
-    );
+    const chart = new google.visualization.ComboChart(container);
     chart.draw(chartData, options);
   } catch (error) {
     console.error('Error drawing pressure distribution chart:', error);
@@ -149,6 +152,13 @@ async function drawPressureDistributionChart() {
 
 async function drawSleepPressureChart() {
   try {
+    // Check if the container exists before proceeding
+    const container = document.getElementById('sleep_pressure_chart');
+    if (!container) {
+      console.warn("Container 'sleep_pressure_chart' not found");
+      return;
+    }
+    
     const response = await fetch('/api/query', {
       method: 'POST',
       headers: {
@@ -165,10 +175,11 @@ async function drawSleepPressureChart() {
           GROUP BY sleepDuration
           ORDER BY 
             CASE sleepDuration
-              WHEN 'Less than 5 hours' THEN 1
-              WHEN '5-6 hours' THEN 2
-              WHEN '7-8 hours' THEN 3
-              WHEN 'More than 8 hours' THEN 4
+              WHEN "'Less than 5 hours'" THEN 1
+              WHEN "'5-6 hours'" THEN 2
+              WHEN "'7-8 hours'" THEN 3
+              WHEN "'More than 8 hours'" THEN 4
+              ELSE 5
             END
         `
       })
@@ -186,8 +197,9 @@ async function drawSleepPressureChart() {
     chartData.addColumn('number', 'Depression Rate (%)');
 
     data.forEach(row => {
+      // Remove the single quotes from sleepDuration values for display
       chartData.addRow([
-        row.sleepDuration.replace(/'/g, ''),
+        row.sleepDuration.replace(/^'|'$/g, ''),
         row.avg_pressure,
         row.depression_percentage
       ]);
@@ -223,9 +235,7 @@ async function drawSleepPressureChart() {
       }
     };
 
-    const chart = new google.visualization.ComboChart(
-      document.getElementById('sleep_pressure_chart')
-    );
+    const chart = new google.visualization.ComboChart(container);
     chart.draw(chartData, options);
   } catch (error) {
     console.error('Error drawing sleep pressure chart:', error);
@@ -234,6 +244,13 @@ async function drawSleepPressureChart() {
 
 async function drawCGPAPressureChart() {
   try {
+    // Check if the container exists before proceeding
+    const container = document.getElementById('cgpa_pressure_chart');
+    if (!container) {
+      console.warn("Container 'cgpa_pressure_chart' not found");
+      return;
+    }
+    
     const response = await fetch('/api/query', {
       method: 'POST',
       headers: {
@@ -306,25 +323,32 @@ async function drawCGPAPressureChart() {
       }
     };
 
-    const chart = new google.visualization.ComboChart(
-      document.getElementById('cgpa_pressure_chart')
-    );
+    const chart = new google.visualization.ComboChart(container);
     chart.draw(chartData, options);
   } catch (error) {
     console.error('Error drawing CGPA pressure chart:', error);
   }
 }
 
-// Draw all charts when the page loads
-google.charts.load('current', {'packages':['corechart']});
-google.charts.setOnLoadCallback(async () => {
-  await drawPressureDistributionChart();
-  await drawSleepPressureChart();
-  await drawCGPAPressureChart();
-});
-
+// Export the main function
 export default async function drawCharts() {
-  await drawPressureDistributionChart();
-  await drawSleepPressureChart();
-  await drawCGPAPressureChart();
+  // Make sure Google Charts is loaded
+  if (typeof google === 'undefined' || typeof google.visualization === 'undefined') {
+    console.warn('Google Charts is not loaded. Waiting for it to load...');
+    
+    // Wait for Google Charts to load if it's not already loaded
+    return new Promise((resolve) => {
+      google.charts.setOnLoadCallback(() => {
+        drawPressureDistributionChart();
+        drawSleepPressureChart();
+        drawCGPAPressureChart();
+        resolve();
+      });
+    });
+  } else {
+    // Google Charts is already loaded
+    await drawPressureDistributionChart();
+    await drawSleepPressureChart();
+    await drawCGPAPressureChart();
+  }
 } 

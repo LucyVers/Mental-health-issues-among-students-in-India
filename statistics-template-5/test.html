@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Statistical Functions</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://unpkg.com/simple-statistics@7.8.3/dist/simple-statistics.min.js"></script>
+    <script src="js/simpleStatistics.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        .test-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        h2 {
+            color: #333;
+        }
+        button {
+            padding: 8px 15px;
+            background-color: #4285F4;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        #status {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-left: 4px solid #2c3e50;
+        }
+        .success {
+            color: green;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Statistical Functions</h1>
+    
+    <div class="test-section">
+        <h2>Financial Stress Statistics</h2>
+        <button onclick="testFinancialStats()">Test Financial Stats</button>
+        <div id="financial-status"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Sleep Quality Statistics</h2>
+        <button onclick="testSleepStats()">Test Sleep Stats</button>
+        <div id="sleep-status"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Dietary Habits Statistics</h2>
+        <button onclick="testDietaryStats()">Test Dietary Stats</button>
+        <div id="dietary-status"></div>
+    </div>
+    
+    <div id="status">Testing status will appear here...</div>
+    
+    <script>
+        async function testFinancialStats() {
+            try {
+                document.getElementById('financial-status').innerHTML = "Testing financial stats...";
+                document.getElementById('status').innerHTML = "Running financial stats test...";
+                
+                const result = await window.calculateFinancialStats();
+                
+                if (result && result.length > 0) {
+                    document.getElementById('financial-status').innerHTML = 
+                        `<p class="success">Financial stats test successful!</p>
+                        <p>Retrieved ${result.length} records.</p>`;
+                    document.getElementById('status').innerHTML += "<br><span class='success'>Financial stats test passed!</span>";
+                } else {
+                    document.getElementById('financial-status').innerHTML = 
+                        `<p class="error">Financial stats test completed but no data returned.</p>`;
+                    document.getElementById('status').innerHTML += "<br><span class='error'>Financial stats test failed - no data.</span>";
+                }
+            } catch (error) {
+                document.getElementById('financial-status').innerHTML = 
+                    `<p class="error">Error testing financial stats: ${error.message}</p>`;
+                document.getElementById('status').innerHTML += "<br><span class='error'>Financial stats test failed with error!</span>";
+                console.error(error);
+            }
+        }
+        
+        async function testSleepStats() {
+            try {
+                document.getElementById('sleep-status').innerHTML = "Testing sleep stats...";
+                document.getElementById('status').innerHTML += "<br>Running sleep stats test...";
+                
+                const result = await window.calculateSleepStats();
+                
+                if (result && result.length > 0) {
+                    document.getElementById('sleep-status').innerHTML = 
+                        `<p class="success">Sleep stats test successful!</p>
+                        <p>Retrieved ${result.length} records.</p>`;
+                    document.getElementById('status').innerHTML += "<br><span class='success'>Sleep stats test passed!</span>";
+                } else {
+                    document.getElementById('sleep-status').innerHTML = 
+                        `<p class="error">Sleep stats test completed but no data returned.</p>`;
+                    document.getElementById('status').innerHTML += "<br><span class='error'>Sleep stats test failed - no data.</span>";
+                }
+            } catch (error) {
+                document.getElementById('sleep-status').innerHTML = 
+                    `<p class="error">Error testing sleep stats: ${error.message}</p>`;
+                document.getElementById('status').innerHTML += "<br><span class='error'>Sleep stats test failed with error!</span>";
+                console.error(error);
+            }
+        }
+        
+        async function testDietaryStats() {
+            try {
+                document.getElementById('dietary-status').innerHTML = "Testing dietary stats...";
+                document.getElementById('status').innerHTML += "<br>Running dietary stats test...";
+                
+                const result = await window.calculateDietaryStats();
+                
+                if (result && result.length > 0) {
+                    document.getElementById('dietary-status').innerHTML = 
+                        `<p class="success">Dietary stats test successful!</p>
+                        <p>Retrieved ${result.length} records.</p>`;
+                    document.getElementById('status').innerHTML += "<br><span class='success'>Dietary stats test passed!</span>";
+                } else {
+                    document.getElementById('dietary-status').innerHTML = 
+                        `<p class="error">Dietary stats test completed but no data returned.</p>`;
+                    document.getElementById('status').innerHTML += "<br><span class='error'>Dietary stats test failed - no data.</span>";
+                }
+            } catch (error) {
+                document.getElementById('dietary-status').innerHTML = 
+                    `<p class="error">Error testing dietary stats: ${error.message}</p>`;
+                document.getElementById('status').innerHTML += "<br><span class='error'>Dietary stats test failed with error!</span>";
+                console.error(error);
+            }
+        }
+    </script>
+</body>
+</html> 

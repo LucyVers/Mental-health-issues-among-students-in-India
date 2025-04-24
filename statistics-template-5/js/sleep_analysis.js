@@ -22,18 +22,11 @@ async function loadSleepAnalysis() {
   try {
     // Fetch sleep data from database
     const sleepData = await dbQuery(`
-      SELECT sleepQuality, depression, COUNT(*) as count
+      SELECT sleepDuration, depression, COUNT(*) as count
       FROM studentDepression
-      WHERE sleepQuality IS NOT NULL
-      GROUP BY sleepQuality, depression
-      ORDER BY 
-        CASE 
-          WHEN sleepQuality = 'Less than 5 hours' THEN 1
-          WHEN sleepQuality = '5-6 hours' THEN 2
-          WHEN sleepQuality = '7-8 hours' THEN 3
-          WHEN sleepQuality = 'More than 8 hours' THEN 4
-          ELSE 5
-        END
+      WHERE sleepDuration IS NOT NULL
+      GROUP BY sleepDuration, depression
+      ORDER BY sleepDuration, depression
     `);
     
     // Process data for visualization
@@ -42,8 +35,9 @@ async function loadSleepAnalysis() {
     let totalCount = 0;
     
     sleepData.forEach(row => {
-      const duration = row.sleepQuality;
-      const isDepressed = row.depression === 'Yes';
+      // Remove single quotes for display
+      const duration = row.sleepDuration.replace(/^'|'$/g, '');
+      const isDepressed = row.depression === 1;
       const count = row.count;
       
       // Track total count
@@ -71,6 +65,8 @@ async function loadSleepAnalysis() {
     const depressionRateData = [['Sleep Duration', 'Depression Rate (%)']];
     
     for (const duration in sleepDistribution) {
+      if (duration === 'Others') continue; // Skip 'Others' category for clean visualization
+      
       const studentCount = sleepDistribution[duration];
       const percentage = (studentCount / totalCount * 100).toFixed(1);
       distributionData.push([`${duration} (${percentage}%)`, studentCount]);

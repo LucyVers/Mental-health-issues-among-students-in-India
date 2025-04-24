@@ -120,9 +120,9 @@ async function normalDistributionTests() {
   
   // Fetch sleep data and map to approximate hours
   const sleepData = await dbQuery(`
-    SELECT sleepQuality 
+    SELECT sleepDuration 
     FROM studentDepression 
-    WHERE sleepQuality IS NOT NULL
+    WHERE sleepDuration IS NOT NULL
   `);
   
   // Convert sleep quality to numeric hours
@@ -134,7 +134,7 @@ async function normalDistributionTests() {
   };
   
   const sleepValues = sleepData
-    .map(item => sleepHoursMap[item.sleepQuality])
+    .map(item => sleepHoursMap[item.sleepDuration])
     .filter(value => value !== undefined);
   
   // Calculate statistics for sleep
@@ -150,7 +150,7 @@ async function normalDistributionTests() {
   const sleep_counts = {};
   
   sleepData.forEach(item => {
-    sleep_counts[item.sleepQuality] = (sleep_counts[item.sleepQuality] || 0) + 1;
+    sleep_counts[item.sleepDuration] = (sleep_counts[item.sleepDuration] || 0) + 1;
   });
   
   sleepCategories.forEach(category => {
@@ -228,7 +228,7 @@ async function financialStressTTests() {
   
   depressionByStress.forEach(row => {
     const stress = parseInt(row.financialStress);
-    const isDepressed = row.depression === 'Yes' ? 1 : 0;
+    const isDepressed = row.depression === 1 ? 1 : 0;
     const count = row.count;
     
     // Add data points based on count
@@ -314,11 +314,11 @@ async function sleepDurationTTests() {
   
   // Fetch depression data by sleep duration
   const depressionBySleep = await dbQuery(`
-    SELECT sleepQuality, depression, COUNT(*) as count
+    SELECT sleepDuration, depression, COUNT(*) as count
     FROM studentDepression
-    WHERE sleepQuality IS NOT NULL
-    GROUP BY sleepQuality, depression
-    ORDER BY sleepQuality, depression
+    WHERE sleepDuration IS NOT NULL
+    GROUP BY sleepDuration, depression
+    ORDER BY sleepDuration, depression
   `);
   
   // Process data for t-test
@@ -326,15 +326,15 @@ async function sleepDurationTTests() {
   const highSleepDepression = []; // 7 or more hours
   
   depressionBySleep.forEach(row => {
-    const isDepressed = row.depression === 'Yes' ? 1 : 0;
+    const isDepressed = row.depression === 1 ? 1 : 0;
     const count = row.count;
     
     // Add data points based on count
-    if (row.sleepQuality === 'Less than 5 hours' || row.sleepQuality === '5-6 hours') {
+    if (row.sleepDuration === 'Less than 5 hours' || row.sleepDuration === '5-6 hours') {
       for (let i = 0; i < count; i++) {
         lowSleepDepression.push(isDepressed);
       }
-    } else if (row.sleepQuality === '7-8 hours' || row.sleepQuality === 'More than 8 hours') {
+    } else if (row.sleepDuration === '7-8 hours' || row.sleepDuration === 'More than 8 hours') {
       for (let i = 0; i < count; i++) {
         highSleepDepression.push(isDepressed);
       }
@@ -420,7 +420,7 @@ async function correlationAnalysis() {
     
     - **Depression**: Yes = 1, No = 0
     - **Financial Stress**: Original scale (1-5)
-    - **Sleep Quality**: Less than 5 hours = 4.5, 5-6 hours = 5.5, 7-8 hours = 7.5, More than 8 hours = 8.5
+    - **Sleep Duration**: Less than 5 hours = 4.5, 5-6 hours = 5.5, 7-8 hours = 7.5, More than 8 hours = 8.5
     - **Dietary Habits**: Healthy = 3, Moderate = 2, Unhealthy = 1
   `);
   

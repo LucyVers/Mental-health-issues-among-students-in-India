@@ -176,3 +176,43 @@
 - The social context research of Indian university education is integrated with data analysis
 - Cross-factor analysis shows relationships between multiple variables
 - All changes should be committed to the GitHub repository 
+
+# TODO-lista för Mental Health Issues Among Students in India
+
+## Arbete att fortsätta med imorgon (2023-05-15)
+
+### Återstående problem att åtgärda
+
+1. **SQL-fel på http://localhost:3005/#financial-stress-analysis**
+   - Felet "SqliteError: no such column: 'Less than 5 hours'" uppstår i SQL-frågan
+   - Behöver verifiera exakt format på sleepDuration-värdena i databasen
+   - Uppdatera SQL-frågor i relevant JavaScript-fil som används på index.html-sidan
+
+2. **Container-fel på http://localhost:3005/#financial-stress-analysis**
+   - "Error: Container is not defined" för alla diagramelement
+   - Behöver identifiera korrekta element-IDs i index.html
+   - Uppdatera JavaScript-koden för att använda rätt element-IDs
+
+3. **Separering av funktionalitet**
+   - Säkerställ att båda sidorna fungerar oberoende av varandra:
+     - http://localhost:3005/financial-analysis.html (redan åtgärdad)
+     - http://localhost:3005/#financial-stress-analysis (behöver åtgärdas)
+
+### Framsteg hittills
+
+1. **Åtgärdade SQL-fel i handleSleepData.js, dietary_analysis.js och pressure_analysis.js**
+   - Uppdaterat CASE-satser med korrekt citathantering ("'Less than 5 hours'" istället för 'Less than 5 hours')
+
+2. **Åtgärdade element-ID-referenser i financial_analysis.js**
+   - Uppdaterat element-IDs från 'financial_stress_distribution', etc. till 'financial-chart', etc.
+
+3. **Skapat test.html för att testa statistikfunktioner**
+   - Enkel testfil för att kontrollera att enskilda statistikfunktioner fungerar korrekt
+
+### Ytterligare anteckningar
+
+- Vid fortsatt arbete, behöver vi undvika att blanda ihop de två olika webbapplikationerna
+- Fokusera på att identifiera vilka JavaScript-filer som används specifikt för index.html-sidan
+- Stäng alltid av servern mellan testerna för att undvika portkonflikt (EADDRINUSE)
+
+## Research folder created at documentation/context/india_research/ for storing all India-related findings 

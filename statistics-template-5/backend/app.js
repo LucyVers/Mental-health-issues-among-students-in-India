@@ -111,7 +111,7 @@ app.post('/api/query', (req, res) => {
 
 // Serve index.html for root path
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../pressure-analysis.html'));
+  res.sendFile(path.join(__dirname, '../index.html'));
 });
 
 // Load SQL queries

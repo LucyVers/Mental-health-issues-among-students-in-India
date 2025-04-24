@@ -6,7 +6,7 @@ import dbQuery from './libs/dbQuery.js';
 // Add dropdowns for selecting factors to analyze
 const primaryFactor = addDropdown('Primary Factor', [
   'Financial Stress', 
-  'Sleep Quality', 
+  'Sleep Duration', 
   'Dietary Habits',
   'Academic Performance (CGPA)'
 ]);
@@ -38,15 +38,15 @@ async function performCrossFactorAnalysis() {
         await financialStressByAge();
       }
     } 
-    else if (primaryFactor === 'Sleep Quality') {
+    else if (primaryFactor === 'Sleep Duration') {
       if (secondaryFactor === 'Gender') {
-        await sleepQualityByGender();
+        await sleepDurationByGender();
       } else if (secondaryFactor === 'Year of Study') {
-        await sleepQualityByStudyYear();
+        await sleepDurationByStudyYear();
       } else if (secondaryFactor === 'Course') {
-        await sleepQualityByCourse();
+        await sleepDurationByCourse();
       } else if (secondaryFactor === 'Age') {
-        await sleepQualityByAge();
+        await sleepDurationByAge();
       }
     }
     else if (primaryFactor === 'Dietary Habits') {
@@ -262,10 +262,10 @@ async function financialStressByAge() {
   `);
 }
 
-// Functions for Sleep Quality cross-factor analysis
-async function sleepQualityByGender() {
+// Functions for Sleep Duration cross-factor analysis
+async function sleepDurationByGender() {
   addMdToPage(`
-    ## Sleep Quality Impact by Gender
+    ## Sleep Duration Impact by Gender
     
     This analysis examines how sleep patterns affect depression rates differently across gender groups.
   `);
@@ -318,10 +318,10 @@ async function sleepQualityByGender() {
   `);
 }
 
-// Implement other sleep quality analysis functions similarly
-async function sleepQualityByStudyYear() {
+// Implement other sleep duration analysis functions
+async function sleepDurationByStudyYear() {
   addMdToPage(`
-    ## Sleep Quality Impact by Year of Study
+    ## Sleep Duration Impact by Year of Study
     
     This analysis examines how the relationship between sleep patterns and depression varies across different years of study.
     
@@ -329,9 +329,9 @@ async function sleepQualityByStudyYear() {
   `);
 }
 
-async function sleepQualityByCourse() {
+async function sleepDurationByCourse() {
   addMdToPage(`
-    ## Sleep Quality Impact by Course Type
+    ## Sleep Duration Impact by Course Type
     
     This analysis examines how the relationship between sleep patterns and depression varies across different academic disciplines.
     
@@ -339,9 +339,9 @@ async function sleepQualityByCourse() {
   `);
 }
 
-async function sleepQualityByAge() {
+async function sleepDurationByAge() {
   addMdToPage(`
-    ## Sleep Quality Impact by Age Group
+    ## Sleep Duration Impact by Age Group
     
     This analysis examines how age influences the relationship between sleep patterns and depression rates.
     
@@ -500,15 +500,16 @@ drawGoogleChart({
   ],
   options: {
     title: 'Depression Rates for Combined Risk Factors',
-    colors: ['#3366CC'],
+    colors: ['#4285F4'],
     legend: { position: 'none' },
     hAxis: { title: 'Factor Combination' },
     vAxis: { title: 'Depression Rate (%)', minValue: 0, maxValue: 100 }
   }
 });
 
+// Key insights section
 addMdToPage(`
-  ### Key Insights from Multi-Factor Analysis
+  ## Key Insights from Multi-Factor Analysis
   
   1. **Compounding Effects**: Multiple risk factors show higher depression rates than single factors alone, with all risk factors combined reaching a concerning 92% depression rate.
   
@@ -518,26 +519,16 @@ addMdToPage(`
   
   4. **High Achievement Paradox**: The combination of high CGPA with other stressors shows particularly high depression rates, reinforcing the counterintuitive finding about academic achievement in the Indian context.
   
-  ## Causality vs. Correlation
+  ### Causality vs. Correlation
   
-  While my analysis reveals strong correlations between various factors and depression rates, determining causality requires careful consideration:
+  While these findings show strong associations between multiple factors and depression, I acknowledge the limitations in establishing causality:
   
-  - **Bidirectional Relationships**: Some relationships may be bidirectional (e.g., poor sleep may contribute to depression, but depression may also disrupt sleep)
+  - **Bidirectional Relationships**: Depression might lead to some of these behaviors, creating feedback loops
+  - **Unmeasured Variables**: Factors like personality traits or family support might influence both risk factors and depression
+  - **Complex Interactions**: Some factors might mediate or moderate the effects of others
   
-  - **Hidden Variables**: Unmeasured factors like personality traits, genetic predisposition, or family history may influence both the predictors and depression
-  
-  - **Mediating Relationships**: Some factors may influence others in a causal chain (e.g., financial stress → sleep problems → depression)
-  
-  My cross-factor analysis helps disentangle some of these relationships by showing how different variables interact, but definitive causal claims would require longitudinal or experimental studies.
-  
-  ## Conclusion
-  
-  This cross-factor analysis reveals complex interactions between various aspects of student life and mental health. The Indian educational context, with its unique pressures and cultural expectations, creates patterns that might not be observed in other countries.
-  
-  The most significant insight is how these factors interact and amplify each other's effects, creating particularly high-risk situations when multiple stressors are present. This underscores the need for comprehensive interventions that address multiple aspects of student wellbeing simultaneously.
-  
-  **Analysis by:** Lucy Sonberg
+  Further research with longitudinal designs would be needed to establish causal relationships definitively.
 `);
 
-// Run the cross-factor analysis when the page loads
+// Initialize the analysis
 performCrossFactorAnalysis(); 
