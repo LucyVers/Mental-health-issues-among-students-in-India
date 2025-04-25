@@ -169,6 +169,12 @@
 - Ensured consistent first-person narrative throughout all pages
 - Added source attribution and researcher information
 
+### April 26, 2025
+- Förbättrade visualiseringar på financial-analysis.html med tydliga procenttal
+- Fixade statistiksammanfattningar på alla sidor
+- Tog bort funktionalitet som tillhör DEL 2 (trendlinjer) från financial-analysis.html
+- Optimerade layouten med större diagram
+
 ## Notes
 - All VG requirements for DEL2 have been successfully implemented
 - The multi-page website structure is complete with interactive elements
@@ -179,7 +185,7 @@
 
 # TODO-lista för Mental Health Issues Among Students in India
 
-## Arbete att fortsätta med imorgon (2025-04-25)
+## Arbete att fortsätta med imorgon (2025-04-27)
 
 ### Återstående problem att åtgärda
 
@@ -210,6 +216,13 @@
    - Utökat diagramstorleken för bättre visualisering
    - Förbättrat procentvisningen så att den syns tydligare
    - Optimerat placeringen av statistisk sammanfattning
+   
+3. **Åtgärdat problem med funktionalitet som hör till DEL 2** ✅ (2025-04-26)
+   - Borttaget trendlinjer (var felaktigt implementerat i DEL 1)
+   - Ersatt ComboChart-komponenten med enklare ColumnChart
+   - Tagit bort .trendline-note i CSS och relaterad kod
+   - Uppdaterat diagramfunktionerna för korrekt DEL 1-implementation
+   - Förenklat visualiseringarna för att följa DEL 1-kraven
 
 ### Ytterligare anteckningar
 
