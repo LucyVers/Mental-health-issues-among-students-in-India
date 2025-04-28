@@ -1,4 +1,81 @@
+# UPPGIFTER FÖR IMORGON (2025-04-27)
+
+## 1. Fixa sidor som saknar innehåll
+- [ ] Dietary Habits Analysis
+  - Sidan visar ingen information
+  - Implementera visualiseringar och analys
+  - Lägg till beskrivande text
+
+- [ ] Academic Pressure Analysis
+  - Sidan är tom
+  - Implementera pressure distribution chart
+  - Lägg till analys av akademisk press
+
+- [ ] Cross-Factor Analysis
+  - Dropdown-menyerna fungerar inte
+  - Implementera visualiseringar för valda faktorer
+  - Lägg till beskrivande text för varje kombination
+
+## 2. Statistical Tests Dropdown
+- [ ] Implementera event listener för dropdown-menyn
+- [ ] Fixa SQL-frågor för sleep duration data
+  - Ta bort extra citattecken (från "'5-6 hours'" till "5-6 hours")
+  - Uppdatera alla SQL-queries i statistical_tests.js
+- [ ] Testa att alla fyra tester fungerar:
+  - Normal Distribution Tests
+  - T-Tests for Financial Stress
+  - T-Tests for Sleep Duration
+  - Correlation Analysis
+
+## 3. Container Problem
+- [ ] Fixa "Error: Container is not defined" på financial-stress-analysis
+- [ ] Identifiera och uppdatera element-IDs i HTML och JavaScript
+
+## 4. Financial Stress Analysis (DEL 2)
+- [ ] Slutför implementationen av /#financial-stress-analysis
+- [ ] Säkerställ att sidan fungerar oberoende av DEL 1
+
+## 5. Visualiseringsförbättringar
+- [ ] Fortsätta med ytterligare visualiseringsförbättringar vid behov
+- [ ] Eventuell finputsning av användargränssnittet
+- [ ] Uppdatera dokumentation efter nya ändringar
+
+# DAGENS STATUS (2025-04-26)
+
+✅ FIXAT: SQL-formatering i simpleStatistics.js (tagit bort extra citattecken)
+❌ KVAR: SQL-problem i statistical_tests.js (sleep duration har fortfarande extra citattecken)
+
 # Project Timeline and Tasks
+
+## AVKLARADE UPPGIFTER (2025-04-26)
+
+### ✅ SQL-formatering i simpleStatistics.js
+- Fixat CASE-statements för sleepDuration
+- Tagit bort extra citattecken från SQL-queries
+- Uppdaterat getSleepDurationCaseStatement()
+
+## PRIORITERADE UPPGIFTER (2025-04-27)
+
+### 1. Fixa SQL-formatering i statistical_tests.js
+- **Problem:** Extra citattecken i sleepDuration-värden
+- **Nuvarande format:** "'5-6 hours'" (dubbla citattecken)
+- **Önskat format:** "5-6 hours" (enkla citattecken)
+- **Att göra:**
+  - [ ] Uppdatera SQL-frågor för att matcha formateringen i simpleStatistics.js
+  - [ ] Testa att sleep duration analysen fungerar
+  - [ ] Verifiera att alla statistiska tester fungerar
+
+### 2. Fixa Container-fel
+- **Var:** http://localhost:3005/#financial-stress-analysis
+- **Problem:** "Error: Container is not defined"
+- **Att göra:**
+  - [ ] Identifiera korrekta element-IDs
+  - [ ] Uppdatera JavaScript-koden
+
+### 3. Slutför Separering av Funktionalitet
+- **Status:**
+  - ✅ financial-analysis.html (DEL 1)
+  - [ ] /#financial-stress-analysis (DEL 2)
 
 ## Project Overview
 - Project Start: March 31, 2025
@@ -175,6 +252,22 @@
 - Tog bort funktionalitet som tillhör DEL 2 (trendlinjer) från financial-analysis.html
 - Optimerade layouten med större diagram
 
+## Completed Work (2025-04-28)
+
+### Fixed Issues and Improvements
+- [x] SQL-fel på financial-stress-analysis sidan är nu löst
+- [x] Container-problem med diagram element är åtgärdade
+- [x] Omfattande omstrukturering av financial_analysis.js
+- [x] Förbättrade visualiseringar i alla analys-komponenter
+- [x] Uppdaterad projektstruktur dokumentation
+- [x] Konverterat dokumentationsfiler till txt-format
+- [x] Optimerat alla JavaScript-filer för bättre prestanda
+
+### Återstående arbete
+- [ ] Fortsätta med ytterligare visualiseringsförbättringar vid behov
+- [ ] Eventuell finputsning av användargränssnittet
+- [ ] Kontinuerlig uppdatering av dokumentation efter nya ändringar
+
 ## Notes
 - All VG requirements for DEL2 have been successfully implemented
 - The multi-page website structure is complete with interactive elements
@@ -203,6 +296,22 @@
    - Säkerställ att båda sidorna fungerar oberoende av varandra:
      - ✅ http://localhost:3005/financial-analysis.html (åtgärdad 2025-04-26)
      - http://localhost:3005/#financial-stress-analysis (behöver åtgärdas)
+
+4. **Statistical Tests Dropdown på http://localhost:3005/#statistical-tests**
+   - Problem: Dropdown-menyn reagerar inte när man väljer olika tester
+   - Implementerade ändringar (2025-04-26):
+     - Lagt till korrekt användning av testType.value i performStatisticalTests()
+     - Implementerat event listener för dropdown-menyn
+     - Lagt till automatisk rensning av tidigare innehåll
+   - Behöver testas imorgon:
+     - Testa att dropdown-menyn reagerar på val
+     - Verifiera att alla fyra tester fungerar:
+       1. Normal Distribution Tests
+       2. T-Tests for Financial Stress
+       3. T-Tests for Sleep Duration
+       4. Correlation Analysis
+     - Kontrollera att tidigare innehåll rensas korrekt
+     - Verifiera att initialiseringen fungerar när sidan laddas
 
 ### Framsteg hittills
 
@@ -263,3 +372,266 @@ To avoid confusion between DEL 1 and DEL 2:
    - Fix SQL and container errors first
    - Consider rename after core functionality is working
    - Document any decision in project_structure.md 
+
+## Arbete för 2025-04-29
+
+### Implementera filtreringsfunktionalitet för Sleep Patterns Analysis
+
+1. **Bakgrund och Syfte**
+   - Dropdown-menyn finns redan på plats med följande val:
+     - Overall Distribution
+     - Gender Breakdown
+     - Year of Study
+     - Course Type
+   - Del av ursprungliga uppgiftskraven för datavisualisering
+   - All nödvändig data finns redan i databasen
+
+2. **Tekniska Uppgifter**
+   - Implementera event listeners för dropdown-menyn
+   - Modifiera SQL-frågor för varje filterval:
+     ```sql
+     -- Exempel för Gender Breakdown
+     SELECT sleepDuration, gender, depression, COUNT(*) as count
+     FROM studentDepression
+     WHERE sleepDuration IS NOT NULL
+     GROUP BY sleepDuration, gender, depression
+     ```
+   - Uppdatera visualiseringarna baserat på valt filter
+   - Återanvända samma filtreringsmönster som i financial_analysis.js
+
+3. **Förväntad Funktionalitet**
+   - Användare ska kunna filtrera sömnmönsterdata efter:
+     - Kön (visa skillnader mellan män/kvinnor)
+     - Studieår (visa trender över studietiden)
+     - Kurstyp (jämföra olika utbildningsprogram)
+   - Diagrammen ska uppdateras automatiskt när filter ändras
+
+4. **Implementation Notes**
+   - Använd befintlig addDropdown funktion
+   - Data finns redan i databasen (verifierat i loggarna)
+   - Uppskattat arbete: ~1 timme
+   - Prioritet: Hög (del av grundläggande funktionalitet) 
+
+### Åtgärda Dietary Habits Analysis Sidan
+
+1. **Problem**
+   - Sidan visar ingen information alls
+   - Saknar beskrivande text och analys
+   - Chart-funktioner finns men initieras inte korrekt
+
+2. **Åtgärder som behövs**
+   - Lägg till `addMdToPage` för att visa:
+     - Övergripande analys av kostvanor
+     - Förklaring av sambandet mellan kost och depression
+     - Tolkningar av visualiseringarna
+   - Implementera korrekt initialisering av diagrammen
+   - Återanvända samma struktur som på sleep-patterns sidan
+   - Lägg till filteringsmöjligheter (samma som för sleep patterns)
+
+3. **Teknisk Implementation**
+   ```javascript
+   // Struktur att implementera
+   import addMdToPage from './libs/addMdToPage.js';
+   import addDropdown from './libs/addDropdown.js';
+   
+   // Lägg till dropdown för filtrering
+   const filterOption = addDropdown('Filter By', [
+     'Overall Distribution',
+     'Gender Breakdown',
+     'Year of Study'
+   ]);
+   
+   // Lägg till beskrivande text
+   addMdToPage(`
+     # Dietary Habits and Depression Among Indian Students
+     
+     Denna analys undersöker sambandet mellan kostvanor och depression...
+   `);
+   ```
+
+4. **Data att inkludera**
+   - Fördelning av kostvanor bland studenter
+   - Korrelation mellan kost och depressionsnivåer
+   - Samband mellan kost, sömn och akademisk prestation
+   - Rekommendationer baserade på fynden 
+
+### Åtgärda Academic Pressure Analysis Sidan
+
+1. **Problem**
+   - Sidan visar ingen information
+   - Saknar beskrivande text och analys
+   - Chart-funktioner finns men initieras inte korrekt
+   - Saknar koppling till SPA-routing
+
+2. **Åtgärder som behövs**
+   - Implementera korrekt SPA-routing för academic-pressure-analysis
+   - Lägg till `addMdToPage` för att visa:
+     - Övergripande analys av akademisk press
+     - Samband mellan press och depression
+     - Tolkningar av visualiseringarna
+   - Implementera korrekt initialisering av diagrammen
+   - Återanvända samma struktur som på sleep-patterns sidan
+
+3. **Teknisk Implementation**
+   ```javascript
+   // Struktur att implementera
+   import addMdToPage from './libs/addMdToPage.js';
+   import addDropdown from './libs/addDropdown.js';
+   
+   // Lägg till dropdown för filtrering
+   const filterOption = addDropdown('Filter By', [
+     'Overall Distribution',
+     'Gender Breakdown',
+     'Year of Study',
+     'Course Type'
+   ]);
+   
+   // Lägg till beskrivande text
+   addMdToPage(`
+     # Academic Pressure and Mental Health Impact
+     
+     Denna analys undersöker hur akademisk press påverkar...
+   `);
+   ```
+
+4. **Data att inkludera**
+   - Fördelning av akademisk press bland studenter
+   - Korrelation mellan press och depressionsnivåer
+   - Samband mellan akademisk press och:
+     - Sömnmönster
+     - Studieresultat (CGPA)
+     - Kostvanor
+   - Rekommendationer för att hantera akademisk press
+
+5. **Existerande funktioner att integrera**
+   - drawPressureDistributionChart()
+   - drawSleepPressureChart()
+   - drawCGPAPressureChart()
+   - Alla dessa funktioner finns redan men behöver kopplas till SPA-strukturen 
+
+### Åtgärda Cross-Factor Analysis Dropdowns
+
+1. **Problem**
+   - Dropdown-menyer för "Primary Factor" och "Secondary Factor" fungerar inte
+   - All analysfunktioner finns implementerade men anropas inte
+   - Saknar koppling mellan UI-val och datavisualisering
+
+2. **Existerande Funktionalitet**
+   - All analysfunktioner är redan implementerade:
+     - financialStressByGender()
+     - financialStressByStudyYear()
+     - sleepDurationByGender()
+     - etc...
+   - Dropdown-menyer finns på plats med korrekta val
+   - Visualiseringar finns för alla kombinationer
+
+3. **Åtgärder som behövs**
+   - Implementera event listeners för båda dropdown-menyerna
+   - Koppla `performCrossFactorAnalysis()` till dropdown-ändringar
+   - Lägg till felhantering för ogiltiga kombinationer
+   - Rensa tidigare visualiseringar när nya val görs
+
+4. **Teknisk Implementation**
+   ```javascript
+   // Lägg till event listeners
+   primaryFactor.addEventListener('change', () => {
+     performCrossFactorAnalysis();
+   });
+   
+   secondaryFactor.addEventListener('change', () => {
+     performCrossFactorAnalysis();
+   });
+   
+   // Uppdatera performCrossFactorAnalysis för att använda valda värden
+   const selectedPrimary = primaryFactor.value;
+   const selectedSecondary = secondaryFactor.value;
+   ```
+
+5. **Förväntad Funktionalitet**
+   - När användaren väljer ny Primary Factor:
+     - Uppdatera visualiseringarna
+     - Visa relevant beskrivande text
+     - Behåll Secondary Factor om kompatibel
+   - När användaren väljer ny Secondary Factor:
+     - Uppdatera visualiseringarna
+     - Visa relevant beskrivande text
+     - Validera mot vald Primary Factor 
+
+### Åtgärda Social Context Dropdown
+
+1. **Problem**
+   - Dropdown-meny för "Social Context Aspect" fungerar inte
+   - All innehåll finns implementerat men visas inte vid val
+   - Saknar event listener för dropdown-ändringar
+
+2. **Existerande Funktionalitet**
+   - Allt innehåll finns för varje kategori:
+     - Education System Overview
+     - Financial Considerations
+     - Work and Study Balance
+     - Student Demographics
+     - Living Conditions
+     - Mental Health Support
+   - Innehållet är välstrukturerat med markdown-formatering
+   - Dropdown-menyn är korrekt skapad
+
+3. **Åtgärder som behövs**
+   - Implementera event listener för dropdown-menyn
+   - Rensa tidigare innehåll när nytt val görs
+   - Visa relevant innehåll baserat på valt alternativ
+   - Lägg till felhantering
+
+4. **Teknisk Implementation**
+   ```javascript
+   // Lägg till event listener
+   contextAspect.addEventListener('change', () => {
+     // Rensa tidigare innehåll
+     clearContent();
+     
+     // Visa nytt innehåll baserat på val
+     displaySelectedContent(contextAspect.value);
+   });
+   ```
+
+5. **Förväntad Funktionalitet**
+   - När användaren väljer nytt alternativ:
+     - Tidigare innehåll tas bort
+     - Nytt innehåll visas omedelbart
+     - Sidan scrollas upp till början av nya innehållet
+   - Behåll valt alternativ vid siduppdatering 
+
+### Åtgärda Statistical Tests Dropdown
+
+**Problem:**
+- Dropdown-menyn för Statistical Tests reagerar inte på användarens val
+- All funktionalitet finns implementerad men event listener saknas
+- Tester som finns implementerade:
+  - Normal Distribution Tests
+  - T-Tests for Financial Stress
+  - T-Tests for Sleep Duration
+  - Correlation Analysis
+
+**Åtgärder som behövs:**
+1. Implementera event listener för dropdown-menyn
+2. Anropa performStatisticalTests() när valet ändras
+3. Rensa tidigare visualiseringar när nytt val görs
+4. Lägg till felhantering för oväntade fel
+
+**Teknisk Implementation:**
+```javascript
+testType.addEventListener('change', () => {
+    // Rensa tidigare innehåll
+    clearContent();
+    
+    // Utför nya statistiska tester
+    performStatisticalTests();
+});
+```
+
+**Förväntad Funktionalitet:**
+- När användaren väljer nytt test:
+  - Tidigare visualiseringar och text tas bort
+  - Nya statistiska tester utförs omedelbart
+  - Resultat visas med diagram och beskrivande text
+  - Felmeddelanden visas om något går fel
+- Behåll valt test vid siduppdatering 

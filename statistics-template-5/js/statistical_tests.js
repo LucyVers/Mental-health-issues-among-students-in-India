@@ -20,17 +20,19 @@ addMdToPage(`
 // Function to fetch data and perform statistical tests
 async function performStatisticalTests() {
   try {
+    const selectedTest = testType.value;
+    
     // Display test information based on selection
-    if (testType === 'Normal Distribution Tests') {
+    if (selectedTest === 'Normal Distribution Tests') {
       await normalDistributionTests();
     } 
-    else if (testType === 'T-Tests for Financial Stress') {
+    else if (selectedTest === 'T-Tests for Financial Stress') {
       await financialStressTTests();
     } 
-    else if (testType === 'T-Tests for Sleep Duration') {
+    else if (selectedTest === 'T-Tests for Sleep Duration') {
       await sleepDurationTTests();
     }
-    else if (testType === 'Correlation Analysis') {
+    else if (selectedTest === 'Correlation Analysis') {
       await correlationAnalysis();
     }
   } catch (error) {
@@ -495,5 +497,21 @@ async function correlationAnalysis() {
   `);
 }
 
-// Run the tests when the page loads
-performStatisticalTests(); 
+// Add event listener to test type dropdown
+document.addEventListener('DOMContentLoaded', () => {
+    if (testType) {
+        testType.addEventListener('change', () => {
+            // Clear previous content
+            const contentDiv = document.getElementById('content');
+            if (contentDiv) {
+                contentDiv.innerHTML = '';
+            }
+            
+            // Perform new statistical tests
+            performStatisticalTests();
+        });
+        
+        // Perform initial statistical test
+        performStatisticalTests();
+    }
+}); 
