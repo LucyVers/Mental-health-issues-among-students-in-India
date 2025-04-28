@@ -1,6 +1,8 @@
 // Dietary Analysis Visualizations
 // Created: April 20, 2025
 
+import addToPage from './libs/addToPage.js';
+
 const chartColors = {
   primary: '#2c3e50',
   secondary: '#e74c3c',
@@ -128,10 +130,10 @@ async function drawDietSleepChart() {
           GROUP BY dietaryHabits, sleepDuration
           ORDER BY dietaryHabits, 
               CASE sleepDuration
-                  WHEN "'Less than 5 hours'" THEN 1
-                  WHEN "'5-6 hours'" THEN 2
-                  WHEN "'7-8 hours'" THEN 3
-                  WHEN "'More than 8 hours'" THEN 4
+                  WHEN 'Less than 5 hours' THEN 1
+                  WHEN '5-6 hours' THEN 2
+                  WHEN '7-8 hours' THEN 3
+                  WHEN 'More than 8 hours' THEN 4
                   ELSE 5
               END
         `
@@ -289,9 +291,32 @@ async function drawDietAcademicChart() {
 
 // Export the drawing functions
 export default function initDietaryCharts() {
+  // Add chart containers to the page
+  addToPage(`
+    <div class="analysis-section mb-5">
+      <h2>Dietary Habits Analysis</h2>
+      <p>This analysis examines how dietary habits affect mental health among Indian university students.</p>
+      
+      <div class="chart-container mb-5">
+        <div id="dietary_distribution_chart" style="width: 100%; height: 500px;"></div>
+      </div>
+      
+      <div class="chart-container mb-5">
+        <div id="diet_sleep_chart" style="width: 100%; height: 500px;"></div>
+      </div>
+      
+      <div class="chart-container mb-5">
+        <div id="diet_academic_chart" style="width: 100%; height: 500px;"></div>
+      </div>
+    </div>
+  `);
+
+  // Set a small delay to ensure DOM elements are created before drawing charts
   google.charts.setOnLoadCallback(() => {
-    drawDietaryDistributionChart();
-    drawDietSleepChart();
-    drawDietAcademicChart();
+    setTimeout(() => {
+      drawDietaryDistributionChart();
+      drawDietSleepChart();
+      drawDietAcademicChart();
+    }, 100); // Small delay to ensure DOM is updated
   });
 } 

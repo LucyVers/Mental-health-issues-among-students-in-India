@@ -2,6 +2,7 @@
 // Created: April 20, 2023
 
 import dbQuery from './libs/dbQuery.js';
+import addToPage from './libs/addToPage.js';
 
 // Shared chart styling
 const chartColors = {
@@ -175,10 +176,10 @@ async function drawSleepPressureChart() {
           GROUP BY sleepDuration
           ORDER BY 
             CASE sleepDuration
-              WHEN "'Less than 5 hours'" THEN 1
-              WHEN "'5-6 hours'" THEN 2
-              WHEN "'7-8 hours'" THEN 3
-              WHEN "'More than 8 hours'" THEN 4
+              WHEN 'Less than 5 hours' THEN 1
+              WHEN '5-6 hours' THEN 2
+              WHEN '7-8 hours' THEN 3
+              WHEN 'More than 8 hours' THEN 4
               ELSE 5
             END
         `
@@ -332,6 +333,26 @@ async function drawCGPAPressureChart() {
 
 // Export the main function
 export default async function drawCharts() {
+  // Add chart containers to the page
+  addToPage(`
+    <div class="analysis-section mb-5">
+      <h2>Academic Pressure Analysis</h2>
+      <p>This analysis examines how academic pressure affects mental health among Indian university students.</p>
+      
+      <div class="chart-container mb-5">
+        <div id="pressure_distribution_chart" style="width: 100%; height: 500px;"></div>
+      </div>
+      
+      <div class="chart-container mb-5">
+        <div id="sleep_pressure_chart" style="width: 100%; height: 500px;"></div>
+      </div>
+      
+      <div class="chart-container mb-5">
+        <div id="cgpa_pressure_chart" style="width: 100%; height: 500px;"></div>
+      </div>
+    </div>
+  `);
+
   // Make sure Google Charts is loaded
   if (typeof google === 'undefined' || typeof google.visualization === 'undefined') {
     console.warn('Google Charts is not loaded. Waiting for it to load...');
@@ -339,16 +360,21 @@ export default async function drawCharts() {
     // Wait for Google Charts to load if it's not already loaded
     return new Promise((resolve) => {
       google.charts.setOnLoadCallback(() => {
-        drawPressureDistributionChart();
-        drawSleepPressureChart();
-        drawCGPAPressureChart();
-        resolve();
+        setTimeout(() => {
+          drawPressureDistributionChart();
+          drawSleepPressureChart();
+          drawCGPAPressureChart();
+          resolve();
+        }, 100); // Small delay to ensure DOM is updated
       });
     });
   } else {
     // Google Charts is already loaded
-    await drawPressureDistributionChart();
-    await drawSleepPressureChart();
-    await drawCGPAPressureChart();
+    // Small delay to ensure DOM is updated
+    setTimeout(async () => {
+      await drawPressureDistributionChart();
+      await drawSleepPressureChart();
+      await drawCGPAPressureChart();
+    }, 100);
   }
 } 

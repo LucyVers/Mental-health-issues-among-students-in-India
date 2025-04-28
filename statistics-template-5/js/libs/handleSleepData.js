@@ -50,10 +50,10 @@ export function getSQLSleepDuration(duration) {
 export function getSleepDurationCaseStatement() {
   return `
     CASE sleepDuration
-      WHEN "'Less than 5 hours'" THEN 1
-      WHEN "'5-6 hours'" THEN 2
-      WHEN "'7-8 hours'" THEN 3
-      WHEN "'More than 8 hours'" THEN 4
+      WHEN 'Less than 5 hours' THEN 1
+      WHEN '5-6 hours' THEN 2
+      WHEN '7-8 hours' THEN 3
+      WHEN 'More than 8 hours' THEN 4
       ELSE 5
     END
   `;

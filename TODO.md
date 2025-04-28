@@ -232,3 +232,34 @@
 - Stäng alltid av servern mellan testerna för att undvika portkonflikt (EADDRINUSE)
 
 ## Research folder created at documentation/context/india_research/ for storing all India-related findings 
+
+### File Structure Clarity Note (Added 2025-04-27)
+
+To avoid confusion between DEL 1 and DEL 2:
+
+1. **File Structure Documentation**
+   - ✅ Created detailed documentation in `documentation/project_structure.md`
+   - Lists all files belonging to each part
+   - Explains the different architectures
+   - Clarifies URL structures
+
+2. **Naming Consideration**
+   - Current situation:
+     - DEL 1: `financial-analysis.html` (standalone file)
+     - DEL 2: `financial_analysis.js` (part of SPA)
+   - Consider renaming `financial_analysis.js` to `financial_stress_analysis.js` to:
+     - Better match its route (#financial-stress-analysis)
+     - Avoid confusion with DEL 1
+     - Make its purpose clearer
+
+3. **Impact of Potential Rename**
+   Would require updates to:
+   - `_menu.js` reference
+   - Any import statements in other files
+   - Documentation
+   - But would NOT affect core functionality
+
+4. **Current Priority**
+   - Fix SQL and container errors first
+   - Consider rename after core functionality is working
+   - Document any decision in project_structure.md 

@@ -17,6 +17,10 @@ if (typeof ss === 'undefined') {
             const mid = Math.floor(sorted.length / 2);
             return sorted.length % 2 === 0 ? (sorted[mid - 1] + sorted[mid]) / 2 : sorted[mid];
         },
+        variance: function(arr) {
+            const mean = this.mean(arr);
+            return this.mean(arr.map(value => Math.pow(value - mean, 2)));
+        },
         standardDeviation: function(arr) {
             const mean = this.mean(arr);
             const squareDiffs = arr.map(value => Math.pow(value - mean, 2));
