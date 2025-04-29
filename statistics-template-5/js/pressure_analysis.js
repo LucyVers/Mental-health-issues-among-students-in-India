@@ -3,6 +3,7 @@
 
 import dbQuery from './libs/dbQuery.js';
 import addToPage from './libs/addToPage.js';
+import { addMdToPage } from './libs/markdown.js';
 
 // Shared chart styling
 const chartColors = {
@@ -59,7 +60,6 @@ const baseOptions = {
 
 async function drawPressureDistributionChart() {
   try {
-    // Check if the container exists before proceeding
     const container = document.getElementById('pressure_distribution_chart');
     if (!container) {
       console.warn("Container 'pressure_distribution_chart' not found");
@@ -75,7 +75,7 @@ async function drawPressureDistributionChart() {
         query: `
           SELECT 
             CASE 
-              WHEN pressure = 0 THEN 'No Pressure'
+              WHEN pressure IS NULL OR pressure = 0 OR pressure < 0.1 THEN 'No Pressure'
               WHEN pressure <= 2 THEN 'Low Pressure'
               WHEN pressure <= 3.5 THEN 'Moderate Pressure'
               ELSE 'High Pressure'
@@ -83,7 +83,13 @@ async function drawPressureDistributionChart() {
             COUNT(*) as student_count,
             ROUND(AVG(CAST(depression as FLOAT)) * 100, 2) as depression_percentage
           FROM studentDepression
-          GROUP BY pressure_category
+          GROUP BY 
+            CASE 
+              WHEN pressure IS NULL OR pressure = 0 OR pressure < 0.1 THEN 'No Pressure'
+              WHEN pressure <= 2 THEN 'Low Pressure'
+              WHEN pressure <= 3.5 THEN 'Moderate Pressure'
+              ELSE 'High Pressure'
+            END
           ORDER BY 
             CASE pressure_category
               WHEN 'No Pressure' THEN 1
@@ -104,48 +110,114 @@ async function drawPressureDistributionChart() {
     const chartData = new google.visualization.DataTable();
     chartData.addColumn('string', 'Pressure Category');
     chartData.addColumn('number', 'Number of Students');
+    chartData.addColumn({type: 'string', role: 'annotation'});
     chartData.addColumn('number', 'Depression Rate (%)');
+    chartData.addColumn({type: 'string', role: 'annotation'});
 
     data.forEach(row => {
+      const studentCount = parseInt(row.student_count) || 0;
+      const depressionRate = parseFloat(row.depression_percentage) || 0;
+      
+      // Add annotations for both metrics in No Pressure category
+      const studentAnnotation = row.pressure_category === 'No Pressure' ? studentCount.toString() + ' students' : null;
+      const depressionAnnotation = row.pressure_category === 'No Pressure' ? depressionRate.toFixed(1) + '%' : null;
+      
       chartData.addRow([
         row.pressure_category,
-        row.student_count,
-        row.depression_percentage
+        studentCount,
+        studentAnnotation,
+        depressionRate,
+        depressionAnnotation
       ]);
     });
 
     const options = {
       ...baseOptions,
+      title: 'Distribution of Pressure Levels and Depression Rates',
       seriesType: 'bars',
       series: {
         0: { 
           targetAxisIndex: 0,
-          color: chartColors.primary
+          color: chartColors.primary,
+          minValue: 0,
+          annotations: {
+            textStyle: {
+              fontSize: 12,
+              color: chartColors.text,
+              bold: true,
+              auraColor: 'white'
+            },
+            stem: {
+              color: chartColors.text,
+              length: 10
+            }
+          }
         },
         1: { 
           targetAxisIndex: 1,
-          type: 'line',
-          color: chartColors.secondary,
-          lineWidth: 3,
-          pointSize: 6
+          color: '#FF6B6B',
+          annotations: {
+            textStyle: {
+              fontSize: 12,
+              color: chartColors.text,
+              bold: true,
+              auraColor: 'white'
+            },
+            stem: {
+              color: chartColors.text,
+              length: 10
+            }
+          }
         }
       },
       vAxes: {
         0: { 
           title: 'Number of Students',
           textStyle: { color: chartColors.text },
-          titleTextStyle: { color: chartColors.text }
+          titleTextStyle: { color: chartColors.text },
+          viewWindow: {
+            min: 0
+          },
+          format: '#,###'
         },
         1: { 
           title: 'Depression Rate (%)',
           textStyle: { color: chartColors.text },
-          titleTextStyle: { color: chartColors.text }
+          titleTextStyle: { color: chartColors.text },
+          viewWindow: {
+            min: 0,
+            max: 100
+          }
         }
+      },
+      bar: { 
+        groupWidth: '80%'
+      },
+      annotations: {
+        alwaysOutside: true,
+        stem: {
+          color: chartColors.text
+        }
+      },
+      tooltip: {
+        trigger: 'both',
+        showColorCode: true
       }
     };
 
     const chart = new google.visualization.ComboChart(container);
     chart.draw(chartData, options);
+
+    // Add explanatory text below the chart
+    const explanation = document.createElement('p');
+    explanation.style.fontSize = '14px';
+    explanation.style.color = chartColors.text;
+    explanation.style.marginTop = '10px';
+    explanation.style.textAlign = 'center';
+    explanation.style.fontStyle = 'italic';
+    explanation.textContent = 'Note: The "No Pressure" category contains only 6 students, significantly fewer than other categories.';
+    container.parentNode.insertBefore(explanation, container.nextSibling);
+
   } catch (error) {
     console.error('Error drawing pressure distribution chart:', error);
   }
@@ -208,6 +280,7 @@ async function drawSleepPressureChart() {
 
     const options = {
       ...baseOptions,
+      title: 'Sleep Duration vs Pressure and Depression Rates',
       seriesType: 'bars',
       series: {
         0: { 
@@ -216,24 +289,31 @@ async function drawSleepPressureChart() {
         },
         1: { 
           targetAxisIndex: 1,
-          type: 'line',
-          color: chartColors.secondary,
-          lineWidth: 3,
-          pointSize: 6
+          color: '#FF6B6B',
+          type: 'bars'
         }
       },
       vAxes: {
         0: { 
           title: 'Average Pressure',
           textStyle: { color: chartColors.text },
-          titleTextStyle: { color: chartColors.text }
+          titleTextStyle: { color: chartColors.text },
+          viewWindow: {
+            min: 0,
+            max: 5
+          }
         },
         1: { 
           title: 'Depression Rate (%)',
           textStyle: { color: chartColors.text },
-          titleTextStyle: { color: chartColors.text }
+          titleTextStyle: { color: chartColors.text },
+          viewWindow: {
+            min: 0,
+            max: 100
+          }
         }
-      }
+      },
+      bar: { groupWidth: '80%' }
     };
 
     const chart = new google.visualization.ComboChart(container);
@@ -296,6 +376,7 @@ async function drawCGPAPressureChart() {
 
     const options = {
       ...baseOptions,
+      title: 'CGPA vs Pressure and Depression Rates',
       seriesType: 'bars',
       series: {
         0: { 
@@ -304,24 +385,31 @@ async function drawCGPAPressureChart() {
         },
         1: { 
           targetAxisIndex: 1,
-          type: 'line',
-          color: chartColors.secondary,
-          lineWidth: 3,
-          pointSize: 6
+          color: '#FF6B6B',
+          type: 'bars'
         }
       },
       vAxes: {
         0: { 
           title: 'Average Pressure',
           textStyle: { color: chartColors.text },
-          titleTextStyle: { color: chartColors.text }
+          titleTextStyle: { color: chartColors.text },
+          viewWindow: {
+            min: 0,
+            max: 5
+          }
         },
         1: { 
           title: 'Depression Rate (%)',
           textStyle: { color: chartColors.text },
-          titleTextStyle: { color: chartColors.text }
+          titleTextStyle: { color: chartColors.text },
+          viewWindow: {
+            min: 0,
+            max: 100
+          }
         }
-      }
+      },
+      bar: { groupWidth: '80%' }
     };
 
     const chart = new google.visualization.ComboChart(container);
@@ -331,50 +419,50 @@ async function drawCGPAPressureChart() {
   }
 }
 
-// Export the main function
-export default async function drawCharts() {
-  // Add chart containers to the page
-  addToPage(`
-    <div class="analysis-section mb-5">
-      <h2>Academic Pressure Analysis</h2>
-      <p>This analysis examines how academic pressure affects mental health among Indian university students.</p>
-      
-      <div class="chart-container mb-5">
-        <div id="pressure_distribution_chart" style="width: 100%; height: 500px;"></div>
-      </div>
-      
-      <div class="chart-container mb-5">
-        <div id="sleep_pressure_chart" style="width: 100%; height: 500px;"></div>
-      </div>
-      
-      <div class="chart-container mb-5">
-        <div id="cgpa_pressure_chart" style="width: 100%; height: 500px;"></div>
-      </div>
-    </div>
-  `);
+// Initialize Google Charts
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(initAcademicPressureAnalysis);
 
-  // Make sure Google Charts is loaded
-  if (typeof google === 'undefined' || typeof google.visualization === 'undefined') {
-    console.warn('Google Charts is not loaded. Waiting for it to load...');
-    
-    // Wait for Google Charts to load if it's not already loaded
-    return new Promise((resolve) => {
-      google.charts.setOnLoadCallback(() => {
+// Main initialization function
+async function initAcademicPressureAnalysis() {
+    // Add descriptive content
+    const content = `
+# Academic Pressure Analysis
+
+This section analyzes the relationship between academic pressure and mental health among Indian students.
+
+## Pressure Distribution
+The chart below shows the distribution of pressure levels among students and their correlation with depression rates.
+
+<div id="pressure_distribution_chart" style="width: 100%; height: 400px;"></div>
+
+## Sleep and Pressure Relationship
+This visualization explores how sleep patterns relate to academic pressure levels.
+
+<div id="sleep_pressure_chart" style="width: 100%; height: 400px;"></div>
+
+## Academic Performance and Pressure
+The following chart illustrates the relationship between CGPA and pressure levels.
+
+<div id="cgpa_pressure_chart" style="width: 100%; height: 400px;"></div>
+`;
+
+    // Add content to page
+    addMdToPage(content);
+
+    // Draw charts in sequence
+    setTimeout(() => {
+        drawPressureDistributionChart();
+        console.log('Drew pressure distribution chart');
+        
         setTimeout(() => {
-          drawPressureDistributionChart();
-          drawSleepPressureChart();
-          drawCGPAPressureChart();
-          resolve();
-        }, 100); // Small delay to ensure DOM is updated
-      });
-    });
-  } else {
-    // Google Charts is already loaded
-    // Small delay to ensure DOM is updated
-    setTimeout(async () => {
-      await drawPressureDistributionChart();
-      await drawSleepPressureChart();
-      await drawCGPAPressureChart();
-    }, 100);
-  }
+            drawSleepPressureChart();
+            console.log('Drew sleep-pressure chart');
+            
+            setTimeout(() => {
+                drawCGPAPressureChart();
+                console.log('Drew CGPA-pressure chart');
+            }, 200);
+        }, 200);
+    }, 200);
 } 
