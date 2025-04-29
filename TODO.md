@@ -44,6 +44,11 @@
   - ✓ Added annotations for small sample sizes
   - ✓ Added explanatory text
   - [ ] Save screenshots for documentation
+- [ ] Sleep Patterns Analysis visualizations
+  - [ ] Take screenshots of all charts from http://localhost:3005/#sleep-patterns-analysis
+  - [ ] Create documentation/findings/sleep_patterns_findings.md
+  - [ ] Save visualizations to documentation/images/sleep_patterns/
+  - [ ] Document key findings and interpretations
 - [ ] Continue with additional visualization improvements as needed
 - [ ] Potential UI refinements
 - [ ] Update documentation after new changes
