@@ -63,48 +63,75 @@ async function drawDietaryDistributionChart() {
 
     const data = await response.json();
     
+    // Prepare data for grouped bar chart
     const chartData = new google.visualization.DataTable();
     chartData.addColumn('string', 'Dietary Habits');
-    chartData.addColumn('number', 'Number of Students');
+    chartData.addColumn('number', 'Number of Students (÷100)');
     chartData.addColumn('number', 'Depression Rate (%)');
-    chartData.addColumn('number', 'Average Pressure');
+    chartData.addColumn('number', 'Average Pressure Score');
 
     data.forEach(row => {
       chartData.addRow([
         row.dietaryHabits,
-        row.student_count,
+        row.student_count / 100, // Skala ner för att matcha andra värden
         row.depression_percentage,
-        row.avg_pressure
+        row.avg_pressure * 20 // Skala upp för bättre visualisering
       ]);
     });
 
     const options = {
       ...baseOptions,
-      title: 'Distribution of Dietary Habits and Mental Health Indicators',
+      title: 'Overview of Mental Health Indicators by Dietary Habits',
       seriesType: 'bars',
       series: {
-        0: { targetAxisIndex: 0, color: chartColors.primary },
-        1: { targetAxisIndex: 1, type: 'line', color: chartColors.secondary },
-        2: { targetAxisIndex: 1, type: 'line', color: chartColors.tertiary }
-      },
-      vAxes: {
         0: { 
-          title: 'Number of Students',
-          textStyle: { color: chartColors.text },
-          titleTextStyle: { color: chartColors.text }
+          color: chartColors.primary,
+          targetAxisIndex: 0,
+          label: 'Number of Students (÷100)'
         },
-        1: { 
-          title: 'Percentage / Score',
-          textStyle: { color: chartColors.text },
-          titleTextStyle: { color: chartColors.text }
+        1: {
+          color: chartColors.secondary,
+          targetAxisIndex: 0,
+          label: 'Depression Rate (%)'
+        },
+        2: {
+          color: chartColors.tertiary,
+          targetAxisIndex: 0,
+          label: 'Pressure Score (×20)'
         }
-      }
+      },
+      vAxis: {
+        title: 'Value',
+        textStyle: { color: chartColors.text },
+        titleTextStyle: { color: chartColors.text },
+        viewWindow: {
+          min: 0,
+          max: 100
+        }
+      },
+      hAxis: {
+        title: 'Dietary Habits',
+        textStyle: { color: chartColors.text },
+        titleTextStyle: { color: chartColors.text }
+      },
+      annotations: {
+        textStyle: {
+          fontSize: 12,
+          color: chartColors.text
+        }
+      },
+      legend: {
+        position: 'top',
+        alignment: 'center'
+      },
+      bar: { groupWidth: '80%' }
     };
 
-    const chart = new google.visualization.ComboChart(
+    const chart = new google.visualization.ColumnChart(
       document.getElementById('dietary_distribution_chart')
     );
     chart.draw(chartData, options);
+
   } catch (error) {
     console.error('Error drawing dietary distribution chart:', error);
   }
@@ -156,18 +183,19 @@ async function drawDietSleepChart() {
     const depressionRates = {};
     
     data.forEach(row => {
-      if (!depressionRates[row.sleepDuration]) {
-        depressionRates[row.sleepDuration] = {};
+      const cleanSleepDuration = row.sleepDuration.replace(/['"]/g, '');
+      if (!depressionRates[cleanSleepDuration]) {
+        depressionRates[cleanSleepDuration] = {};
       }
-      depressionRates[row.sleepDuration][row.dietaryHabits] = row.depression_percentage;
+      depressionRates[cleanSleepDuration][row.dietaryHabits] = row.depression_percentage;
     });
 
     sleepCategories.forEach(sleep => {
       chartData.addRow([
         sleep,
-        depressionRates[sleep]['Healthy'] || 0,
-        depressionRates[sleep]['Moderate'] || 0,
-        depressionRates[sleep]['Unhealthy'] || 0
+        depressionRates[sleep]?.['Healthy'] || 0,
+        depressionRates[sleep]?.['Moderate'] || 0,
+        depressionRates[sleep]?.['Unhealthy'] || 0
       ]);
     });
 
@@ -291,7 +319,7 @@ async function drawDietAcademicChart() {
 
 // Export the drawing functions
 export default function initDietaryCharts() {
-  // Add chart containers to the page
+  // Add chart containers to the page with explanatory text
   addToPage(`
     <div class="analysis-section mb-5">
       <h2>Dietary Habits Analysis</h2>
@@ -299,6 +327,10 @@ export default function initDietaryCharts() {
       
       <div class="chart-container mb-5">
         <div id="dietary_distribution_chart" style="width: 100%; height: 500px;"></div>
+        <p class="text-muted mt-2">
+          Note: For better comparison, the number of students is divided by 100 and the pressure score is multiplied by 20.
+          All values are shown on the same scale (0-100).
+        </p>
       </div>
       
       <div class="chart-container mb-5">
@@ -311,12 +343,31 @@ export default function initDietaryCharts() {
     </div>
   `);
 
-  // Set a small delay to ensure DOM elements are created before drawing charts
+  // Draw all charts
   google.charts.setOnLoadCallback(() => {
-    setTimeout(() => {
-      drawDietaryDistributionChart();
-      drawDietSleepChart();
-      drawDietAcademicChart();
-    }, 100); // Small delay to ensure DOM is updated
+    drawDietaryDistributionChart();
+    drawDietSleepChart();
+    drawDietAcademicChart();
   });
-} 
+}
+
+// Ensure initialization happens after DOM is ready
+function initializePage() {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      google.charts.load('current', {
+        'packages': ['corechart'],
+        'language': 'sv'
+      });
+      google.charts.setOnLoadCallback(initDietaryCharts);
+    });
+  } else {
+    google.charts.load('current', {
+      'packages': ['corechart'],
+      'language': 'sv'
+    });
+    google.charts.setOnLoadCallback(initDietaryCharts);
+  }
+}
+
+initializePage(); 

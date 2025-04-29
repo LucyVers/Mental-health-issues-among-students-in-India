@@ -1,86 +1,51 @@
-# UPPGIFTER FÖR IMORGON (2025-04-27)
+# TASKS FOR TOMORROW (2025-04-27)
 
-## 1. Fixa sidor som saknar innehåll
-- [ ] Dietary Habits Analysis
-  - Sidan visar ingen information
-  - Implementera visualiseringar och analys
-  - Lägg till beskrivande text
+## 1. Fix Pages Missing Content
+- [x] Dietary Habits Analysis
+  - ✓ Fixed page showing no information
+  - ✓ Implemented visualizations and analysis
+  - ✓ Added descriptive text
 
 - [ ] Academic Pressure Analysis
-  - Sidan är tom
-  - Implementera pressure distribution chart
-  - Lägg till analys av akademisk press
+  - Page is empty
+  - Implement pressure distribution chart
+  - Add pressure analysis
 
 - [ ] Cross-Factor Analysis
-  - Dropdown-menyerna fungerar inte
-  - Implementera visualiseringar för valda faktorer
-  - Lägg till beskrivande text för varje kombination
+  - Dropdown menus not working
+  - Implement visualizations for selected factors
+  - Add descriptive text for each combination
 
 ## 2. Statistical Tests Dropdown
-- [ ] Implementera event listener för dropdown-menyn
-- [ ] Fixa SQL-frågor för sleep duration data
-  - Ta bort extra citattecken (från "'5-6 hours'" till "5-6 hours")
-  - Uppdatera alla SQL-queries i statistical_tests.js
-- [ ] Testa att alla fyra tester fungerar:
+- [ ] Implement event listener for dropdown menu
+- [ ] Fix SQL queries for sleep duration data
+  - Remove extra quotes (from "'5-6 hours'" to "5-6 hours")
+  - Update all SQL queries in statistical_tests.js
+- [ ] Test that all four tests work:
   - Normal Distribution Tests
   - T-Tests for Financial Stress
   - T-Tests for Sleep Duration
   - Correlation Analysis
 
 ## 3. Container Problem
-- [ ] Fixa "Error: Container is not defined" på financial-stress-analysis
-- [ ] Identifiera och uppdatera element-IDs i HTML och JavaScript
+- [ ] Fix "Error: Container is not defined" on financial-stress-analysis
+- [ ] Identify and update element IDs in HTML and JavaScript
 
-## 4. Financial Stress Analysis (DEL 2)
-- [ ] Slutför implementationen av /#financial-stress-analysis
-- [ ] Säkerställ att sidan fungerar oberoende av DEL 1
+## 4. Financial Stress Analysis (PART 2)
+- [ ] Complete implementation of /#financial-stress-analysis
+- [ ] Ensure page works independently of PART 1
 
-## 5. Visualiseringsförbättringar
-- [ ] Fortsätta med ytterligare visualiseringsförbättringar vid behov
-- [ ] Eventuell finputsning av användargränssnittet
-- [ ] Uppdatera dokumentation efter nya ändringar
+## 5. Visualization Improvements
+- [ ] Continue with additional visualization improvements as needed
+- [ ] Potential UI refinements
+- [ ] Update documentation after new changes
 
-# DAGENS STATUS (2025-04-26)
+# CURRENT STATUS (2025-04-26)
 
-✅ FIXAT: SQL-formatering i simpleStatistics.js (tagit bort extra citattecken)
-❌ KVAR: SQL-problem i statistical_tests.js (sleep duration har fortfarande extra citattecken)
+✅ FIXED: SQL formatting in simpleStatistics.js (removed extra quotes)
+❌ REMAINING: SQL issues in statistical_tests.js (sleep duration still has extra quotes)
 
 # Project Timeline and Tasks
-
-## AVKLARADE UPPGIFTER (2025-04-26)
-
-### ✅ SQL-formatering i simpleStatistics.js
-- Fixat CASE-statements för sleepDuration
-- Tagit bort extra citattecken från SQL-queries
-- Uppdaterat getSleepDurationCaseStatement()
-
-## PRIORITERADE UPPGIFTER (2025-04-27)
-
-### 1. Fixa SQL-formatering i statistical_tests.js
-- **Problem:** Extra citattecken i sleepDuration-värden
-- **Nuvarande format:** "'5-6 hours'" (dubbla citattecken)
-- **Önskat format:** "5-6 hours" (enkla citattecken)
-- **Att göra:**
-  - [ ] Uppdatera SQL-frågor för att matcha formateringen i simpleStatistics.js
-  - [ ] Testa att sleep duration analysen fungerar
-  - [ ] Verifiera att alla statistiska tester fungerar
-
-### 2. Fixa Container-fel
-- **Var:** http://localhost:3005/#financial-stress-analysis
-- **Problem:** "Error: Container is not defined"
-- **Att göra:**
-  - [ ] Identifiera korrekta element-IDs
-  - [ ] Uppdatera JavaScript-koden
-
-### 3. Slutför Separering av Funktionalitet
-- **Status:**
-  - ✅ financial-analysis.html (DEL 1)
-  - [ ] /#financial-stress-analysis (DEL 2)
-
-## Project Overview
-- Project Start: March 31, 2025
-- Part 1 Deadline: April 30, 2025
-- Final Project Deadline: May 4, 2025
 
 ## Completed Tasks (Both DEL1 and DEL2)
 

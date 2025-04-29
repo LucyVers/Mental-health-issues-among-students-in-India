@@ -62,6 +62,8 @@ function hashNav() {
   let menuData = globalThis.menuDataFlat;
   let h = location.hash || '#' + kebabify(menuData[0].name);
   window.hash = h.slice(1);
+  
+  // Update active menu items
   for (let link of [...document.querySelectorAll('header .nav-item a')]) {
     let href = link.getAttribute('href');
     link.classList.remove('active');
@@ -70,19 +72,26 @@ function hashNav() {
       link.closest('.nav-item').querySelector('.nav-link').classList.add('active');
     }
   }
-  // empty main area
+
+  // Remove old script and clear content
+  let oldScriptTag = document.querySelector('.page-script');
+  if (oldScriptTag) {
+    oldScriptTag.remove();
+  }
   document.querySelector('main').innerHTML = '';
-  // load script
+
+  // Load new script
   let src = '/js/' + ((menuData.find(x => x.slug === h) || {}).script || '') + '?' + Math.random();
   let scriptTag = document.createElement('script');
   scriptTag.classList.add('page-script');
   scriptTag.setAttribute('type', 'module');
   scriptTag.setAttribute('src', src);
-  let oldScriptTag = document.querySelector('.page-script');
-  oldScriptTag && oldScriptTag.remove();
   document.body.append(scriptTag);
-  // close navbar
+  
+  // close navbar if open
   let nbToggler = document.querySelector('.navbar-toggler');
-  nbToggler.getAttribute('aria-expanded') === 'true' && nbToggler.click();
+  if (nbToggler && nbToggler.getAttribute('aria-expanded') === 'true') {
+    nbToggler.click();
+  }
 }
 window.onhashchange = hashNav;
