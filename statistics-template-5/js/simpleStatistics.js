@@ -586,7 +586,4 @@ window.calculateFinancialStats = calculateFinancialStats;
 window.calculateSleepStats = calculateSleepStats;
 window.calculateDietaryStats = calculateDietaryStats;
 
-// Export functions for import in other files
-export { calculateFinancialStats, calculateSleepStats, calculateDietaryStats };
-
 console.log('Simple Statistics module loaded successfully!'); 

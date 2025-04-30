@@ -4,7 +4,7 @@
 import addToPage from './libs/addToPage.js';
 import dbQuery from './libs/dbQuery.js';
 import makeChartFriendly from './libs/makeChartFriendly.js';
-import { calculateFinancialStats } from './simpleStatistics.js';
+import { calculateFinancialStats, interpretStressLevel } from './financial-stress-module.js';
 
 // Shared chart styling
 const chartColors = {
@@ -398,31 +398,18 @@ async function initializeCharts() {
 }
 
 function updateFinancialStats(stats) {
-    if (!stats) return;
+    if (!stats || !stats.data) return;
     
     try {
-        // Get the statistics from the first row to avoid "undefined" errors
-        // First calculate mean values manually since the function returns raw data
-        let totalStudents = 0;
-        let totalWeightedValue = 0;
-        let highStressCount = 0;
-        
-        stats.forEach(row => {
-            const stress = parseInt(row.financialStress);
-            const count = parseInt(row.count);
-            totalStudents += count;
-            totalWeightedValue += stress * count;
-            
-            if (stress >= 4) {
-                highStressCount += count;
-            }
-        });
-        
-        const mean = totalWeightedValue / totalStudents;
+        // Use the pre-calculated values from the module
+        const mean = stats.mean;
+        const highStressCount = stats.highStressCount;
+        const totalStudents = stats.totalStudents;
+        const highStressPercentage = stats.highStressPercentage;
         
         // Find most common stress level
         const stressLevels = {};
-        stats.forEach(row => {
+        stats.data.forEach(row => {
             const stress = row.financialStress;
             if (!stressLevels[stress]) stressLevels[stress] = 0;
             stressLevels[stress] += parseInt(row.count);
@@ -432,7 +419,7 @@ function updateFinancialStats(stats) {
         
         // Calculate depression rate by stress level
         const grouped = {};
-        stats.forEach(row => {
+        stats.data.forEach(row => {
             const level = parseInt(row.financialStress);
             if (!grouped[level]) {
                 grouped[level] = {depressed: 0, total: 0};
@@ -446,7 +433,7 @@ function updateFinancialStats(stats) {
             }
         });
         
-        // Calcuate correlation
+        // Calculate correlation
         const stressLevelsArray = [];
         const depressionRates = [];
         
@@ -461,13 +448,13 @@ function updateFinancialStats(stats) {
         document.getElementById('financial-mean').innerHTML = `
             <strong>Average Stress Level:</strong> ${mean.toFixed(2)} out of 5
             <br>
-            <em>Interpretation: Moderate to high stress levels</em>
+            <em>Interpretation: ${interpretStressLevel(mean)}</em>
         `;
         
         document.getElementById('financial-median').innerHTML = `
             <strong>Most Common Stress Level:</strong> ${mostCommonStress}
             <br>
-            <em>${(highStressCount/totalStudents*100).toFixed(1)}% of students report high stress (level 4-5)</em>
+            <em>${highStressPercentage}% of students report high stress (level 4-5)</em>
         `;
         
         document.getElementById('financial-std').innerHTML = `
@@ -482,30 +469,7 @@ function updateFinancialStats(stats) {
         `;
     } catch (error) {
         console.error('Error updating financial stats:', error);
-        
-        // Fallback to hardcoded values in case of error to ensure display works
-        document.getElementById('financial-mean').innerHTML = `
-            <strong>Average Stress Level:</strong> 3.14 out of 5
-            <br>
-            <em>Interpretation: Moderate to high stress levels</em>
-        `;
-        
-        document.getElementById('financial-median').innerHTML = `
-            <strong>Most Common Stress Level:</strong> 5
-            <br>
-            <em>44.8% of students report high stress (level 4-5)</em>
-        `;
-        
-        document.getElementById('financial-std').innerHTML = `
-            <strong>High Stress Impact:</strong> 12490 students
-            <br>
-            <em>Experience significant financial pressure (levels 4-5)</em>
-        `;
-        
-        document.getElementById('financial-summary').innerHTML = `
-            <strong>Key Finding:</strong> Strong correlation (0.99) 
-            between financial stress and depression
-        `;
+        handleError(error);
     }
 }
 
