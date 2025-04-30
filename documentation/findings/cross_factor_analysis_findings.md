@@ -138,6 +138,38 @@ This analysis page maintains a consistent structure across all factor combinatio
 - Limited access to balanced meal options in many institutions
 - Different dietary expectations and restrictions by gender
 
+### 4. Academic Performance Impact by Gender
+![Academic Performance by Gender](../images/cross_factor_analysis/academic_performance_gender.png)
+
+#### Methodology
+- Analyzed depression rates across five CGPA ranges
+- Compared male and female student responses
+- Used grouped column chart with consistent color scheme
+- Added direct value annotations in black for better readability
+
+#### Key Findings
+1. **Counterintuitive Pattern**
+   - Both genders show increasing depression rates with higher academic performance
+   - Contradicts typical expectations where success might correlate with better mental health
+   - Suggests unique pressures in the Indian academic context
+
+2. **Gender Difference at High Achievement**
+   - The gender gap is most pronounced at the highest achievement level (≥ 9.0 CGPA)
+   - Female students show 3% higher depression rates at top performance levels (68% vs 65%)
+   - Indicates additional pressures on high-achieving female students
+
+3. **Universal Pressure**
+   - Both genders experience the psychological burden of high academic achievement
+   - Similar upward trends in depression rates across CGPA ranges
+   - Suggests systemic pressure regardless of gender
+
+#### Contextual Interpretation
+These findings reflect unique aspects of the Indian educational environment:
+
+- **Performance Pressure**: The intense competition in Indian higher education creates psychological burden for high-performing students
+- **Family Expectations**: Cultural expectations regarding academic excellence create pressure to maintain high performance
+- **Gender-Specific Pressures**: High-achieving female students may face additional expectations or barriers in certain fields
+
 ## Implications
 
 ### 1. Support Systems

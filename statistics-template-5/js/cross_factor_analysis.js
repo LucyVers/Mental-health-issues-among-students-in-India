@@ -477,52 +477,68 @@ async function academicPerformanceByGender() {
     This analysis examines how academic performance (CGPA) affects depression rates differently across gender groups.
   `);
   
-  // Example data - would be replaced with actual database query
   drawGoogleChart({
-    type: 'LineChart',
+    type: 'ColumnChart',
     data: [
-      ['CGPA Range', 'Male', 'Female'],
-      ['< 6.0', 54, 57],
-      ['6.0-6.9', 56, 58],
-      ['7.0-7.9', 58, 59],
-      ['8.0-8.9', 61, 62],
-      ['≥ 9.0', 65, 68]
+      ['CGPA Range', 'Male', 'Female', { role: 'annotation' }, { role: 'annotation' }],
+      ['< 6.0', 54, 57, '54%', '57%'],
+      ['6.0-6.9', 56, 58, '56%', '58%'],
+      ['7.0-7.9', 58, 59, '58%', '59%'],
+      ['8.0-8.9', 61, 62, '61%', '62%'],
+      ['≥ 9.0', 65, 68, '65%', '68%']
     ],
     options: {
       title: 'Depression Rates (%) by CGPA and Gender',
-      curveType: 'function',
-      legend: { position: 'bottom' },
-      hAxis: { title: 'CGPA Range' },
-      vAxis: { title: 'Depression Rate (%)', minValue: 0, maxValue: 100 }
+      colors: ['#4285F4', '#DB4437'],
+      legend: { position: 'top' },
+      hAxis: { 
+        title: 'CGPA Range',
+        slantedText: true,
+        slantedTextAngle: 30
+      },
+      vAxis: { 
+        title: 'Depression Rate (%)', 
+        minValue: 0, 
+        maxValue: 100,
+        gridlines: { count: 11 }
+      },
+      bar: { groupWidth: '80%' },
+      annotations: {
+        textStyle: {
+          fontSize: 12,
+          bold: true,
+          color: 'black'
+        },
+        alwaysOutside: false
+      }
     }
   });
   
   addMdToPage(`
     ### Key Findings
     
-    1. **Counterintuitive Pattern**: Both genders show increasing depression rates with higher academic performance, contradicting what might be expected in other educational contexts.
+    1. **Counterintuitive Pattern**
+       - Both genders show increasing depression rates with higher academic performance
+       - Contradicts typical expectations where success might correlate with better mental health
+       - Suggests unique pressures in the Indian academic context
     
-    2. **Gender Difference at High Achievement**: The gender gap is most pronounced at the highest achievement level (≥ 9.0 CGPA), with female students showing a 3% higher depression rate.
+    2. **Gender Difference at High Achievement**
+       - The gender gap is most pronounced at the highest achievement level (≥ 9.0 CGPA)
+       - Female students show 3% higher depression rates at top performance levels
+       - Indicates additional pressures on high-achieving female students
     
-    3. **Universal Pressure**: Both genders experience the psychological burden of high academic achievement, with similar upward trends in depression rates.
+    3. **Universal Pressure**
+       - Both genders experience the psychological burden of high academic achievement
+       - Similar upward trends in depression rates across CGPA ranges
+       - Suggests systemic pressure regardless of gender
     
     ### Contextual Interpretation
     
     These findings reflect unique aspects of the Indian educational environment:
     
     - **Performance Pressure**: The intense competition in Indian higher education creates psychological burden for high-performing students
-    
     - **Family Expectations**: Cultural expectations regarding academic excellence create pressure to maintain high performance
-    
     - **Gender-Specific Pressures**: High-achieving female students may face additional expectations or barriers in certain fields
-    
-    ### Implications
-    
-    These findings suggest:
-    
-    - Mental health support specifically targeting high-achieving students
-    - Programs addressing the psychological aspects of academic pressure
-    - Awareness campaigns about the mental health risks associated with performance pressure
   `);
 }
 
