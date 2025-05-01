@@ -6,15 +6,11 @@ This analysis examines the relationship between dietary habits and mental health
 2. Relationship between dietary habits, sleep patterns, and depression
 3. Connection between dietary habits, academic performance, and depression
 
-## Visualizations
-All visualizations are available in `documentation/images/dietary_analysis/`:
-- `overview_chart.png`: Overview of dietary habits and mental health indicators
-- `sleep_chart.png`: Dietary habits and sleep patterns
-- `academic_chart.png`: Dietary habits and academic performance
-
 ## Key Findings
 
 ### 1. Distribution and Mental Health Indicators
+![Overview of Dietary Habits and Mental Health](../images/dietary_analysis/overview_chart.png)
+
 - **Student Distribution:**
   - Unhealthy dietary habits: ~10,300 students
   - Moderate dietary habits: ~9,900 students
@@ -31,11 +27,15 @@ All visualizations are available in `documentation/images/dietary_analysis/`:
   - Healthy dietary habits: 3.00
 
 ### 2. Dietary Habits and Sleep Patterns
+![Dietary Habits and Sleep Patterns](../images/dietary_analysis/sleep_chart.png)
+
 - Students with healthy dietary habits and more than 8 hours of sleep show the lowest depression rate (36.81%)
 - Students with unhealthy dietary habits and less than 5 hours of sleep show the highest depression rate (76.04%)
 - Clear pattern showing both dietary habits and sleep duration affect mental health
 
 ### 3. Dietary Habits and Academic Performance
+![Dietary Habits and Academic Performance](../images/dietary_analysis/academic_chart.png)
+
 - High-performing students (CGPA ≥8.0):
   - Healthy dietary habits: 47.39% depression
   - Moderate dietary habits: 58.70% depression

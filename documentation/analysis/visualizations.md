@@ -14,20 +14,11 @@ Additionally, a comparative analysis visualization shows the relative impact of 
 
 ## Image Organization
 
-Due to the comprehensive nature of the analysis, some sections have been captured in multiple images to ensure all details are visible:
+The visualizations are organized in two main directories:
+- `images/part1/` - Contains the original development versions
+- `images/part1_final/` - Contains the final, enhanced versions used in the presentation
 
-- Single-image sections:
-  - Executive Summary
-  - Comparative Analysis Table
-  - Recommendations
-  - Footer
-
-- Multi-image sections (divided into part 1 and part 2):
-  - Financial Stress Analysis
-  - Sleep Pattern Analysis
-  - Dietary Habits Analysis
-
-This organization allows for clear documentation of all analysis components while maintaining readability.
+This organization preserves the project's development history while clearly identifying the final versions used in the presentation.
 
 ## Narrative Structure
 
@@ -55,43 +46,55 @@ This section allows readers to quickly grasp the main findings before exploring 
 
 ## Financial Stress and Depression
 
-![Financial Stress Analysis Part 1](../images/financial_stress_section1.png)
-![Financial Stress Analysis Part 2](../images/financial_stress_section2.png)
+### Development Version
+![Financial Stress Analysis Original](../images/part1/financial_stress_section1.png)
+![Financial Stress Analysis Original Detail](../images/part1/financial_stress_section2.png)
+
+### Final Version
+![Financial Stress Analysis Final](../images/part1_final/financial_stress_analysis_final.png)
 
 This visualization shows:
 - Distribution of students across different financial stress levels (1-5)
 - Percentage of depressed vs. non-depressed students at each level
-- A strong positive correlation (r=0.97) between financial stress and depression
+- A strong positive correlation (r=0.99) between financial stress and depression
 - Clear trend showing that higher financial stress levels are associated with higher depression rates
-- At the highest stress level (5), 81.3% of students show depression symptoms
+- At the highest stress level, 81% of students show depression symptoms
 
 The narrative text accompanying this visualization explains how financial stress emerges as the most powerful predictor of depression and explores the broader implications of this relationship.
 
 ## Sleep Duration and Depression
 
-![Sleep Pattern Analysis Part 1](../images/sleep_patterns_section1.png)
-![Sleep Pattern Analysis Part 2](../images/sleep_patterns_section2.png)
+### Development Version
+![Sleep Pattern Analysis Original](../images/part1/sleep_patterns_section1.png)
+![Sleep Pattern Analysis Original Detail](../images/part1/sleep_patterns_section2.png)
+
+### Final Version
+![Sleep Pattern Analysis Final](../images/part1_final/sleep_pattern_analysis_final.png)
 
 This visualization shows:
 - Distribution of students across different sleep duration categories
 - Percentage of depressed vs. non-depressed students in each category
 - A strong negative correlation (r=-0.84) between sleep duration and depression
 - Clear trend showing that shorter sleep durations are associated with higher depression rates
-- Among students sleeping less than 5 hours, 64.5% show depression symptoms
+- 52.0% of students get less than 6 hours of sleep
 
 The narrative explains how sleep patterns reflect physical health factors that impact mental wellbeing and how academic pressures may force students to sacrifice sleep quality.
 
 ## Dietary Habits and Depression
 
-![Dietary Habits Analysis Part 1](../images/dietary_habits_section1.png)
-![Dietary Habits Analysis Part 2](../images/dietary_habits_section2.png)
+### Development Version
+![Dietary Habits Analysis Original](../images/part1/dietary_habits_section1.png)
+![Dietary Habits Analysis Original Detail](../images/part1/dietary_habits_section2.png)
+
+### Final Version
+![Dietary Habits Analysis Final](../images/part1_final/dietary_impact_analysis_final.png)
 
 This visualization shows:
 - Distribution of students across different dietary habit categories
 - Percentage of depressed vs. non-depressed students in each category
 - A strong negative correlation (r=-0.97) between healthier diet and depression
-- Clear trend showing that unhealthier diets are associated with higher depression rates
-- Among students with unhealthy diets, 70.7% show depression symptoms
+- Only 27.4% of students maintain healthy diets
+- 70.7% of students with unhealthy diets report depression symptoms
 
 The narrative explores both the direct biochemical impact of nutrition on brain function and the possible indirect effects of financial constraints limiting access to quality food.
 

@@ -32,20 +32,20 @@ Analysis results:
 
 ### 4. Hypothesis Testing
 T-tests for Financial Stress:
-- Null Hypothesis: No difference in depression rates between high and low financial stress groups
-- Alternative Hypothesis: Higher depression rates in high financial stress group
-- Results: 
-  - t = 63.0270 (p < 0.001)
-  - Low Stress (1-2): 37.39% depression rate
-  - High Stress (4-5): 75.64% depression rate
-  - Statistically significant difference
-  - 102.31% increase in depression risk
+  - Null Hypothesis: No difference in depression rates between high and low financial stress groups
+  - Alternative Hypothesis: Higher depression rates in high financial stress group
+  - Results: 
+    - t = 63.0270 (p < 0.001)
+    - Low Stress (1-2): 37.39% depression rate
+    - High Stress (4-5): 75.64% depression rate
+    - Statistically significant difference
+    - 102.31% increase in depression risk
 
 ### 5. Data Visualization
 Implementation using Google Charts:
-- Distribution histograms
-- Depression rate comparisons
-- Correlation bar charts
+  - Distribution histograms
+  - Depression rate comparisons
+  - Correlation bar charts
 Features include:
 - Interactive elements
 - Filtering capabilities
