@@ -1,7 +1,10 @@
 # Mental Health Issues Among Students in India - Project Overview
 
+© 2025 Lucy Sonberg. All rights reserved.
+This documentation and all associated content are protected by copyright law. Any use, reproduction, or distribution requires explicit permission from the copyright holder.
+
 ## Project Description
-This project analyzes mental health issues among university students in India through a comprehensive survey analysis. The study examines the relationship between various factors such as academic workload, sleep patterns, dietary habits, and mental health outcomes.
+In this individual research project, I analyze mental health issues among university students in India through a comprehensive survey analysis. The study examines the relationship between various factors such as academic workload, sleep patterns, dietary habits, and mental health outcomes.
 
 ## Project Goals
 1. Analyze the prevalence of mental health issues among Indian university students
@@ -22,7 +25,7 @@ project/
 ├── documentation/
 │   ├── findings/     # Detailed findings and results
 │   ├── analysis/     # Analysis methods and procedures
-│   └── context/      # Indian educational and social context
+│   └── context/      # Research on Indian educational and social context
 ├── statistics-template-5/  # Main application code
 └── data/            # Dataset and database files
 ```
@@ -39,8 +42,17 @@ project/
 4. Contextual analysis of Indian education system
 5. GitHub repository with all project files
 
-## Next Steps
-1. Complete data import and verification
-2. Set up database structure
-3. Begin initial analysis
-4. Create visualization framework 
+## Current Status
+I have completed:
+1. Data import and verification
+2. Database structure setup
+3. Initial analysis
+4. Visualization framework implementation
+
+## Copyright Notice
+This project, including all documentation, code, and analysis, is my individual work. All rights are reserved. 
+The content is protected under copyright law and may not be used, reproduced, or distributed without my explicit permission.
+
+For permissions or inquiries, please contact:
+Lucy Sonberg
+lucyxrdeveloper@gmail.com

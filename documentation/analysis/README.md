@@ -1,39 +1,72 @@
-# Documentation Overview
+# Analysis Documentation Overview
 
-This directory contains documentation for different aspects of the project:
+© 2025 Lucy Sonberg. All rights reserved.
+This documentation and all associated content are protected by copyright law. Any use, reproduction, or distribution requires explicit permission from the copyright holder.
 
-## 1. Project Setup and Common Issues (`project_setup.md`)
-- **Purpose**: Guide for setting up and running the project
-- **Key Topics**:
-  * Directory structure and file paths
-  * Server configuration and startup
-  * Database connections
-  * Troubleshooting common setup issues
+## Analysis Documentation Structure
 
-## 2. Visualization Challenges and Solutions (`visualization_challenges.md`)
-- **Purpose**: Technical guide for data visualization implementation
-- **Key Topics**:
-  * Handling data with large value differences
-  * Chart optimization techniques
-  * Best practices for data presentation
-  * Code examples and solutions
+### 1. Project Setup and Implementation (`project_setup.md`)
+- **Purpose**: Technical documentation of project implementation
+- **Key Components**:
+  * Directory structure and file organization
+  * Server configuration and deployment
+  * Database implementation
+  * Solution documentation for technical challenges
 
-## When to Use Which Document
+### 2. Visualization Implementation (`visualization_challenges.md`)
+- **Purpose**: Technical documentation of data visualization solutions
+- **Key Components**:
+  * Data scaling and normalization techniques
+  * Chart optimization implementations
+  * Data presentation standards
+  * Implementation examples and solutions
 
-### Use Project Setup when you need to:
-- Set up the project for the first time
-- Troubleshoot server or database issues
-- Understand the project structure
-- Fix path-related problems
+### 3. Statistical Analysis (`statistical_methods.md`)
+- **Purpose**: Documentation of statistical methodology and implementation
+- **Key Components**:
+  * Statistical tests and procedures
+  * Data processing methods
+  * Analysis results and interpretations
+  * Validation procedures
 
-### Use Visualization Challenges when you need to:
-- Implement new charts or graphs
-- Fix visualization display issues
-- Handle extreme data value ranges
-- Follow best practices for data presentation
+### 4. Data Quality Analysis (`data_quality_investigation.md`)
+- **Purpose**: Documentation of data validation and quality assurance
+- **Key Components**:
+  * Data validation procedures
+  * Quality control measures
+  * Error detection and correction
+  * Data integrity verification
+
+## Document Usage Guide
+
+### Project Setup Documentation:
+- Initial project configuration
+- System requirements and dependencies
+- Database setup and configuration
+- Troubleshooting guidelines
+
+### Visualization Documentation:
+- Chart implementation details
+- Display optimization techniques
+- Data presentation standards
+- Technical solutions and examples
+
+### Statistical Analysis Documentation:
+- Methodology descriptions
+- Implementation details
+- Results interpretation
+- Validation procedures
 
 ## Documentation Standards
-- Each document focuses on a specific aspect of the project
-- Code examples are included where relevant
-- Solutions are explained with context and reasoning
-- Regular updates are made as new challenges are solved 
+- Focused technical documentation
+- Detailed implementation examples
+- Context-based solution explanations
+- Regular documentation updates
+
+## Copyright Notice
+This analysis documentation, including all technical details and implementations, is my individual work. All rights are reserved. 
+The content is protected under copyright law and may not be used, reproduced, or distributed without my explicit permission.
+
+For permissions or inquiries, please contact:
+Lucy Sonberg
+lucyxrdeveloper@gmail.com 

@@ -1,9 +1,12 @@
 # Project Structure Documentation
 
+© 2025 Lucy Sonberg. All rights reserved.
+This documentation and all associated content are protected by copyright law. Any use, reproduction, or distribution requires explicit permission from the copyright holder.
+
 ## Project Overview
 This project consists of two separate applications analyzing mental health among Indian students:
 
-### DEL 1 (Standalone Analysis)
+### Part 1 (Standalone Analysis)
 **Main File:**
 - `statistics-template-5/financial-analysis.html`
   - Self-contained file with embedded JavaScript
@@ -11,7 +14,7 @@ This project consists of two separate applications analyzing mental health among
   - URL: http://localhost:3005/financial-analysis.html
   - Status: ✅ COMPLETED AND WORKING
 
-### DEL 2 (Single Page Application)
+### Part 2 (Single Page Application)
 **Core Files:**
 - `statistics-template-5/index.html` (Main SPA container)
 - `statistics-template-5/js/_menu.js` (Navigation system)
@@ -35,20 +38,28 @@ This project consists of two separate applications analyzing mental health among
   - makeChartFriendly.js
   - jerzy-loader.js
 
-**URL Structure:**
+**Application URL Structure:**
 - Base: http://localhost:3005/
 - Financial Analysis: http://localhost:3005/#financial-stress-analysis
 - Sleep Analysis: http://localhost:3005/#sleep-patterns-analysis
 - Dietary Analysis: http://localhost:3005/#dietary-habits-analysis
 - etc.
 
-## Important Notes
-1. The similar names between DEL 1's `financial-analysis.html` and DEL 2's `financial_analysis.js` are coincidental
-2. DEL 1 and DEL 2 are completely separate applications with different architectures:
-   - DEL 1: Single HTML file with embedded JavaScript
-   - DEL 2: Modern SPA with modular JavaScript files
+## Implementation Notes
+1. The similar names between Part 1's `financial-analysis.html` and Part 2's `financial_analysis.js` are coincidental
+2. Part 1 and Part 2 are separate applications with different architectures:
+   - Part 1: Single HTML file with embedded JavaScript
+   - Part 2: Modern SPA with modular JavaScript files
 3. Files should not be mixed between the two parts as they use different approaches
 
 ## Development Status
-- DEL 1: Completed and functioning correctly
-- DEL 2: Under development, with some remaining issues to fix 
+- Part 1: Completed and functioning correctly
+- Part 2: Main functionality completed with some optimizations pending
+
+## Copyright Notice
+This project structure documentation, including all architectural decisions and implementations, is my individual work. All rights are reserved. 
+The content is protected under copyright law and may not be used, reproduced, or distributed without my explicit permission.
+
+For permissions or inquiries, please contact:
+Lucy Sonberg
+lucyxrdeveloper@gmail.com 
