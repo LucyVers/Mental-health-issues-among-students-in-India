@@ -9,39 +9,27 @@ This project and all its contents are protected by copyright law. Any use, repro
 
 ## Project Structure
 ```
-├── documentation/                          # Project documentation
-├── statistics-template-5/                  # Main project directory
-│   ├── js/                                # JavaScript files
-│   │   ├── libs/                          # Utility libraries
-│   │   │   ├── addToPage.js              # UI utility functions
-│   │   │   ├── dbQuery.js                # Database query handler
-│   │   │   └── makeChartFriendly.js      # Chart data processor
-│   │   ├── financial_analysis.js          # Financial analysis charts
-│   │   ├── pressure_analysis.js           # Pressure analysis charts
-│   │   ├── sleep_analysis.js             # Sleep patterns analysis
-│   │   ├── social_context.js             # Social context analysis
-│   │   └── dietary_analysis.js            # Dietary analysis charts
-│   ├── backend/                           # Backend related files
-│   ├── data/                             
-│   │   └── student_depression_dataset.csv  # Main dataset
-│   ├── sqlite-databases/                   # Database directory
-│   │   └── student_depression.db          # SQLite database
-│   ├── HTML Files:
-│   │   ├── index.html                     # Main entry point
-│   │   ├── financial-analysis.html        # Financial analysis page
-│   │   ├── pressure-analysis.html         # Pressure analysis page
-│   │   ├── dietary-analysis.html          # Dietary analysis page
-│   │   ├── statistics.html               # Statistics overview
-│   │   ├── statistics-analysis.html      # Detailed statistics
-│   │   └── test.html                     # Testing page
-│   ├── style.css                          # Custom styling
-│   ├── package.json                       # Project dependencies
-│   ├── package-lock.json                  # Dependency lock file
-│   └── chartSettings.json                 # Chart configuration
-├── DEL1_Psykisk ohälsa bland studerande - analys av en enkätundersökning.txt
-├── DEL2_Psykisk ohälsa bland studerande i Indien.txt
-├── .gitignore                             # Git ignore rules
-└── README.md                              # Project documentation
+├── backend/
+├── data/
+├── documentation/
+├── js/
+├── node_modules/
+├── sqlite-databases/
+├── .gitattributes
+├── .gitignore
+├── chartSettings.json
+├── DATABASE-README.md
+├── dietary-analysis.html
+├── financial-analysis.html
+├── index.html
+├── package-lock.json
+├── package.json
+├── pressure-analysis.html
+├── README.md
+├── statistics-analysis.html
+├── statistics.html
+├── style.css
+└── test.html
 ```
 
 ## Key Features

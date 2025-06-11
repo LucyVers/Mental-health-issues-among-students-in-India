@@ -115,7 +115,7 @@ app.get('/', (req, res) => {
 });
 
 // Load SQL queries
-const queriesPath = path.join(__dirname, '../../documentation/analysis/queries/financial_stress_analysis.sql');
+const queriesPath = path.join(__dirname, '../documentation/analysis/queries/financial_stress_analysis.sql');
 const sqlQueries = fs.readFileSync(queriesPath, 'utf8').split(';');
 
 // API endpoints for financial stress analysis
